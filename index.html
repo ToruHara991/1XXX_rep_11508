@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>115年8月 一區客服業務績效簡報</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700;900&amp;family=Noto+Sans+TC:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet">
+<script src="./xlsx.full.min.js"></script>
+<script src="./chart.umd.js"></script>
+<style>
+:root{
+  --navy:#0A2A3A;
+  --navy-2:#0F3A4E;
+  --teal:#0E7C8A;
+  --teal-deep:#0A5F6B;
+  --teal-tint:#E7F3F3;
+  --paper:#F3F7F7;
+  --card:#FFFFFF;
+  --line:#DAE5E6;
+  --ink:#17282D;
+  --ink-soft:#5A6E73;
+  --amber:#E8A317;
+  --amber-tint:#FDF1D6;
+  --coral:#BD463C;
+  --coral-tint:#FBEAE8;
+  --gold:#B7902E;
+  --ripple: rgba(14,124,138,0.10);
+  --radius: 10px;
+  --shadow: 0 1px 2px rgba(10,42,58,0.06), 0 6px 20px rgba(10,42,58,0.06);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  background:
+    radial-gradient(1100px 420px at 12% -8%, var(--ripple), transparent 60%),
+    radial-gradient(900px 380px at 100% 0%, rgba(201,129,42,0.06), transparent 55%),
+    var(--paper);
+  color:var(--ink);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:'Noto Serif TC','Noto Sans TC',serif; font-weight:700; margin:0;}
+::selection{ background: var(--teal-tint); color: var(--teal-deep); }
+button{font-family:inherit;}
+a{color:var(--teal-deep);}
+
+/* ---------- Top identity bar ---------- */
+.topbar{
+  background: linear-gradient(120deg, var(--navy) 0%, var(--navy-2) 62%, var(--teal-deep) 130%);
+  color:#fff;
+  padding: 18px 22px;
+  position:relative;
+  overflow:hidden;
+}
+.topbar::after{
+  content:"";
+  position:absolute; right:-60px; top:-90px; width:280px; height:280px;
+  border-radius:50%;
+  border: 40px solid rgba(255,255,255,0.05);
+}
+.topbar::before{
+  content:"";
+  position:absolute; right:80px; bottom:-120px; width:220px; height:220px;
+  border-radius:50%;
+  border: 26px solid rgba(255,255,255,0.045);
+}
+.topbar-inner{
+  max-width:1240px; margin:0 auto;
+  display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+  position:relative; z-index:1;
+}
+.brand{ display:flex; align-items:center; gap:14px; }
+.brand-mark{
+  width:46px; height:46px; border-radius:12px;
+  background: rgba(255,255,255,0.10);
+  border:1px solid rgba(255,255,255,0.22);
+  display:flex; align-items:center; justify-content:center;
+  flex:none;
+}
+.brand-mark svg{ width:26px; height:26px; }
+.brand-text .eyebrow{
+  font-size:12.5px; letter-spacing:.02em; color:rgba(255,255,255,0.72); font-weight:500;
+}
+.brand-text h1{ font-size:22px; color:#fff; line-height:1.25; }
+.brand-text h1 small{ display:block; font-family:'Noto Sans TC'; font-weight:500; font-size:13px; color:rgba(255,255,255,0.78); margin-top:2px; }
+
+.top-actions{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+.chip{
+  font-size:12.5px; font-weight:600; color:#fff;
+  background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.28);
+  padding:6px 12px; border-radius:999px; white-space:nowrap;
+}
+.btn{
+  appearance:none; border:1px solid transparent; cursor:pointer;
+  border-radius:8px; padding:9px 16px; font-size:14px; font-weight:600;
+  display:inline-flex; align-items:center; gap:7px; transition:transform .12s ease, background .15s ease, box-shadow .15s ease;
+}
+.btn:active{ transform: translateY(1px); }
+.btn-light{ background:rgba(255,255,255,0.14); color:#fff; border-color:rgba(255,255,255,0.32); }
+.btn-light:hover{ background:rgba(255,255,255,0.22); }
+.btn-solid{ background:var(--teal); color:#fff; }
+.btn-solid:hover{ background:var(--teal-deep); }
+.btn-ghost{ background:transparent; color:var(--teal-deep); border-color:var(--line); }
+.btn-ghost:hover{ background:var(--teal-tint); }
+.btn-sm{ padding:6px 12px; font-size:13px; }
+.btn[disabled]{ opacity:.5; cursor:not-allowed; }
+
+/* ---------- Upload screen ---------- */
+.upload-wrap{ max-width:920px; margin:0 auto; padding:56px 20px 80px; }
+.upload-hero{ text-align:center; margin-bottom:34px; }
+.upload-hero .kicker{ color:var(--teal-deep); font-weight:700; font-size:13.5px; letter-spacing:.02em; }
+.upload-hero h2{ font-size:30px; color:var(--navy); margin-top:8px; line-height:1.4; }
+.upload-hero p{ color:var(--ink-soft); font-size:15px; max-width:620px; margin:12px auto 0; line-height:1.8; }
+
+.dropzones{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+@media (max-width:760px){ .dropzones{ grid-template-columns:1fr; } }
+.dropzone{
+  background:var(--card); border:2px dashed var(--line); border-radius:14px;
+  padding:26px 20px; text-align:center; cursor:pointer; transition: border-color .15s ease, background .15s ease;
+  position:relative;
+}
+.dropzone:hover, .dropzone.drag{ border-color:var(--teal); background:var(--teal-tint); }
+.dropzone.filled{ border-style:solid; border-color:var(--teal); background:var(--teal-tint); }
+.dropzone .dz-icon{
+  width:44px; height:44px; margin:0 auto 12px; border-radius:10px;
+  background:var(--teal-tint); display:flex; align-items:center; justify-content:center;
+}
+.dropzone.filled .dz-icon{ background:#fff; }
+.dropzone .dz-icon svg{ width:22px; height:22px; color:var(--teal-deep); }
+.dropzone h3{ font-size:15.5px; color:var(--navy); margin-bottom:4px; }
+.dropzone p{ font-size:12.5px; color:var(--ink-soft); margin:0; line-height:1.6; }
+.dropzone .dz-filename{ font-size:12.5px; color:var(--teal-deep); font-weight:700; margin-top:8px; word-break:break-all; }
+.dropzone input[type=file]{ position:absolute; inset:0; opacity:0; cursor:pointer; }
+
+.upload-actions{ margin-top:26px; display:flex; justify-content:center; gap:12px; flex-wrap:wrap; }
+.upload-note{ margin-top:22px; font-size:12.5px; color:var(--ink-soft); text-align:center; line-height:1.9; }
+.upload-error{
+  margin-top:18px; background:var(--coral-tint); border:1px solid #EFC6C1; color:#8B2F27;
+  padding:12px 16px; border-radius:10px; font-size:13.5px; text-align:left; white-space:pre-line;
+}
+
+/* ---------- App shell ---------- */
+#app{ display:none; }
+.container{ max-width:1240px; margin:0 auto; padding:22px 20px 70px; }
+
+/* Tabs */
+.tabbar-wrap{ position:sticky; top:0; z-index:20; background:var(--paper); padding-top:14px; padding-bottom:2px; }
+.tabbar{
+  display:flex; gap:6px; background:var(--card); border:1px solid var(--line); border-radius:12px;
+  padding:5px; box-shadow:var(--shadow); overflow-x:auto; -webkit-overflow-scrolling:touch;
+}
+.tab-btn{
+  appearance:none; border:none; background:transparent; cursor:pointer;
+  padding:11px 18px; border-radius:8px; font-size:14.5px; font-weight:700; color:var(--ink-soft);
+  white-space:nowrap; flex:none; display:flex; align-items:center; gap:8px;
+  transition: background .15s ease, color .15s ease;
+}
+.tab-btn .tab-num{
+  width:20px; height:20px; border-radius:50%; background:var(--teal-tint); color:var(--teal-deep);
+  font-size:11.5px; display:flex; align-items:center; justify-content:center; font-weight:800;
+}
+.tab-btn.active{ background: var(--navy); color:#fff; }
+.tab-btn.active .tab-num{ background:rgba(255,255,255,0.18); color:#fff; }
+@media (max-width:640px){ .tab-btn{ padding:10px 13px; font-size:13.5px; } }
+
+.tab-panel{ display:none; padding-top:22px; }
+.tab-panel.active{ display:block; }
+
+/* Section headings */
+.section-head{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:14px; flex-wrap:wrap; }
+.section-head h2{ font-size:19px; color:var(--navy); }
+.section-head .section-sub{ font-size:12.5px; color:var(--ink-soft); }
+.block{ margin-bottom:30px; }
+
+/* KPI cards */
+.kpi-grid{ display:grid; grid-template-columns:repeat(6, 1fr); gap:12px; }
+@media (max-width:1080px){ .kpi-grid{ grid-template-columns:repeat(3,1fr); } }
+@media (max-width:620px){ .kpi-grid{ grid-template-columns:repeat(2,1fr); } }
+.kpi-card{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:16px 16px 14px; box-shadow:var(--shadow); position:relative; overflow:hidden;
+}
+.kpi-card .kpi-bar{ position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--teal); }
+.kpi-card.tone-amber .kpi-bar{ background:var(--amber); }
+.kpi-card.tone-coral .kpi-bar{ background:var(--coral); }
+.kpi-card.tone-navy .kpi-bar{ background:var(--navy); }
+.kpi-label{ font-size:12px; color:var(--ink-soft); font-weight:600; margin-bottom:8px; line-height:1.5; }
+.kpi-value{ font-family:'Noto Serif TC'; font-size:30px; font-weight:800; color:var(--navy); line-height:1; }
+.kpi-value .unit{ font-size:13px; color:var(--ink-soft); font-weight:600; margin-left:4px; }
+.kpi-foot{ font-size:11.5px; color:var(--ink-soft); margin-top:8px; }
+
+.presenting .kpi-value{ font-size:38px; }
+.presenting .kpi-label{ font-size:13.5px; }
+.presenting .section-head h2{ font-size:23px; }
+.presenting .card-title{ font-size:16.5px; }
+
+/* Cards / chart containers */
+.grid-2{ display:grid; grid-template-columns:1.2fr 1fr; gap:16px; }
+@media (max-width:900px){ .grid-2{ grid-template-columns:1fr; } }
+.grid-3{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+@media (max-width:900px){ .grid-3{ grid-template-columns:1fr; } }
+.card{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:18px 18px 14px; box-shadow:var(--shadow);
+}
+.card-title{ font-size:14.5px; font-weight:700; color:var(--navy); margin-bottom:2px; }
+.card-sub{ font-size:12px; color:var(--ink-soft); margin-bottom:12px; }
+.chart-box{ position:relative; height:280px; }
+.chart-box.tall{ height:360px; }
+.chart-box.short{ height:220px; }
+
+/* Station table */
+.table-wrap{ overflow-x:auto; border:1px solid var(--line); border-radius:var(--radius); background:var(--card); }
+table{ width:100%; border-collapse:collapse; font-size:13.5px; min-width:640px; }
+thead th{
+  text-align:left; background:var(--teal-tint); color:var(--teal-deep); font-weight:700;
+  padding:10px 12px; border-bottom:1px solid var(--line); white-space:nowrap; position:sticky; top:0;
+}
+tbody td{ padding:9px 12px; border-bottom:1px solid var(--line); color:var(--ink); vertical-align:top; }
+tbody tr:last-child td{ border-bottom:none; }
+tbody tr:hover{ background:var(--paper); }
+tbody tr.row-total td{ background:var(--navy); color:#fff; font-weight:700; }
+tbody tr.row-hq td{ background:var(--amber-tint); font-weight:600; }
+td.num, th.num{ text-align:right; font-variant-numeric:tabular-nums; }
+.badge{ display:inline-block; padding:2px 9px; border-radius:999px; font-size:11.5px; font-weight:700; }
+.badge-teal{ background:var(--teal-tint); color:var(--teal-deep); }
+.badge-coral{ background:var(--coral-tint); color:#8B2F27; }
+.badge-amber{ background:var(--amber-tint); color:#8A5A16; }
+.badge-gray{ background:#EEF2F2; color:var(--ink-soft); }
+.rank-pill{
+  display:inline-flex; align-items:center; justify-content:center; min-width:26px; height:26px; padding:0 8px;
+  border-radius:8px; font-weight:800; font-size:13px; background:#EEF2F2; color:var(--ink-soft);
+}
+.rank-pill.gold{ background:#F7EBC9; color:#8A6A10; }
+.rank-pill.self{ background:var(--navy); color:#fff; }
+
+/* 各月得分與排名 table */
+.score-rank-table{ min-width:920px; font-size:12.5px; }
+.score-rank-table thead th{ text-align:center; }
+.score-rank-table thead th.sub{ background:var(--paper); color:var(--ink-soft); font-weight:600; font-size:11px; padding:6px 10px; }
+.score-rank-table td.rowlabel, .score-rank-table th.rowlabel{ text-align:left; position:sticky; left:0; background:var(--card); z-index:1; white-space:nowrap; }
+.score-rank-table td.rank-good{ background:#E2F0DE; color:#2E6B34; font-weight:700; }
+.score-rank-table td.rank-bad{ background:var(--coral-tint); color:#8B2F27; font-weight:700; }
+
+.own-row td{ background: var(--teal-tint) !important; font-weight:700; }
+/* 各月得分與排名 table：一區列改用深底＋金色左框，避免被表內淡綠/淡紅排名色蓋過 */
+.score-rank-table tbody tr.own-row td{ border-top:2px solid var(--navy); border-bottom:2px solid var(--navy); background:transparent !important; }
+.score-rank-table tbody tr.own-row td.rowlabel{ background:var(--navy) !important; color:#fff; font-weight:800; border-left:4px solid var(--gold); }
+.score-rank-table tbody tr.own-row td.rowlabel .badge-teal{ background:rgba(255,255,255,0.85); color:var(--navy); }
+.score-rank-table tbody tr.own-row td.rank-good{ background:#E2F0DE !important; }
+.score-rank-table tbody tr.own-row td.rank-bad{ background:var(--coral-tint) !important; }
+
+/* Filters bar (case explorer) */
+.filters{
+  display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:14px;
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:12px 14px; box-shadow:var(--shadow);
+}
+.filters input[type=text], .filters select{
+  font-family:inherit; font-size:13.5px; padding:8px 11px; border-radius:8px; border:1px solid var(--line);
+  background:#fff; color:var(--ink);
+}
+.filters input[type=text]{ flex:1 1 220px; min-width:180px; }
+.filters .filter-count{ font-size:12.5px; color:var(--ink-soft); margin-left:auto; white-space:nowrap; }
+
+.case-list{ display:flex; flex-direction:column; gap:10px; }
+.case-item{
+  background:var(--card); border:1px solid var(--line); border-left:4px solid var(--teal);
+  border-radius:10px; padding:13px 15px; cursor:pointer; box-shadow:var(--shadow);
+}
+.case-item.type-duplicate{ border-left-color:var(--coral); }
+.case-item.type-overdue{ border-left-color:var(--amber); }
+.case-item.type-dissatisfied{ border-left-color:var(--teal); }
+.case-item .case-top{ display:flex; justify-content:space-between; gap:10px; align-items:flex-start; flex-wrap:wrap; }
+.case-item .case-meta{ font-size:12px; color:var(--ink-soft); display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-top:4px;}
+.station-badge{ display:inline-block; padding:2px 9px; border-radius:999px; font-size:11.5px; font-weight:700; }
+.case-item .case-desc{ font-size:13.5px; color:var(--ink); margin-top:9px; line-height:1.7; }
+.case-item .case-detail{ display:none; margin-top:10px; padding-top:10px; border-top:1px dashed var(--line); font-size:13px; color:var(--ink-soft); line-height:1.85; }
+.case-item.open .case-detail{ display:block; }
+.case-item .case-info{ margin-top:9px; padding:9px 11px; background:var(--paper); border-radius:8px; font-size:12.5px; line-height:1.7; }
+.case-item .case-info-row{ display:flex; gap:8px; }
+.case-item .case-info-row + .case-info-row{ margin-top:3px; }
+.case-item .case-info-label{ flex:none; width:118px; color:var(--teal-deep); font-weight:700; }
+.case-item .case-info-value{ color:var(--ink); }
+.case-item .case-info-value-flag{ color:#8B2F27; font-weight:700; }
+.case-item .case-id{ font-weight:700; color:var(--navy); font-size:13.5px; }
+.month-figure{ font-weight:800; color:var(--gold); }
+.clamp2{ display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.case-item.open .clamp2{ -webkit-line-clamp:unset; }
+.empty-note{
+  text-align:center; padding:38px 20px; color:var(--ink-soft); background:var(--card);
+  border:1px dashed var(--line); border-radius:var(--radius); font-size:14px;
+}
+
+.note-banner{
+  display:flex; gap:10px; align-items:flex-start; background:var(--teal-tint); border:1px solid #CDE7E8;
+  color:var(--teal-deep); padding:12px 15px; border-radius:10px; font-size:13px; line-height:1.7; margin-bottom:16px;
+}
+.note-banner.warn{ background:var(--amber-tint); border-color:#F0DBB2; color:#8A5A16; }
+.note-banner svg{ flex:none; width:18px; height:18px; margin-top:1px; }
+
+.legend-swatch{ display:inline-block; width:10px; height:10px; border-radius:3px; margin-right:6px; vertical-align:middle; }
+
+footer.app-footer{ text-align:center; padding:26px 20px 44px; color:var(--ink-soft); font-size:12px; }
+footer.app-footer .foot-brand{ font-weight:700; color:var(--ink); }
+
+@media print{
+  .topbar, .tabbar-wrap, .filters, .upload-wrap{ display:none !important; }
+  .tab-panel{ display:block !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== TOP BAR ===================== -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C12 2 5 10.5 5 15a7 7 0 0 0 14 0C19 10.5 12 2 12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"></path><path d="M8.5 15.2a3.5 3.5 0 0 0 3.5 3.4" stroke="white" stroke-width="1.6" stroke-linecap="round"></path></svg>
+      </div>
+      <div class="brand-text">
+        <div class="eyebrow">客服服務業務績效稽核</div>
+        <h1>一區客服績效簡報<small id="monthLabelText">115年8月 一區客服業務績效稽核簡報</small></h1>
+      </div>
+    </div>
+    <div class="top-actions" id="topActions" style="display: flex;">
+      <span class="chip" id="updatedChip">報告產出：2026/09/15 17:41</span>
+      <button class="btn btn-light btn-sm" id="btnPresent" type="button">簡報模式</button>
+      <button class="btn btn-light btn-sm" id="btnExport" type="button">匯出獨立報告</button>
+      <button class="btn btn-light btn-sm" id="btnReupload" type="button">重新匯入</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== UPLOAD SCREEN ===================== -->
+<div id="uploadScreen" class="upload-wrap" style="display: none;">
+  <div class="upload-hero">
+    <div class="kicker">月度資料匯入</div>
+    <h2>匯入兩份報表，自動生成一區績效簡報</h2>
+    <p>請分別匯入當月的「客戶服務業務績效(查核)統計表」與「排名試算表」，系統將在瀏覽器端直接解析並生成互動報告，資料不會上傳至任何伺服器。</p>
+  </div>
+
+  <div class="dropzones">
+    <label class="dropzone filled" id="dz1" for="file1">
+      <div class="dz-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h10l6 6v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"></path><path d="M14 4v6h6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"></path></svg></div>
+      <h3>客戶服務業務績效(查核)統計表</h3>
+      <p>.xls／.xlsx　—　含當月頁簽、重複案件、逾期案件、不滿意案件</p>
+      <div class="dz-filename" id="dz1name">已選擇：115年08月客戶服務業務績效(查核)統計表(115)..xls</div>
+      <input type="file" id="file1" accept=".xls,.xlsx">
+    </label>
+    <label class="dropzone filled" id="dz2" for="file2">
+      <div class="dz-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h10l6 6v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"></path><path d="M14 4v6h6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"></path></svg></div>
+      <h3>排名試算表</h3>
+      <p>.xlsx　—　含顧客滿意度、排名試算、排名對比、各月份缺失表</p>
+      <div class="dz-filename" id="dz2name">已選擇：【排名】115(1910).xlsx</div>
+      <input type="file" id="file2" accept=".xls,.xlsx">
+    </label>
+  </div>
+
+  <div class="upload-actions">
+    <button class="btn btn-solid" id="btnGenerate" type="button">產生互動報告</button>
+    <button class="btn btn-ghost" id="btnLoadSample" type="button" style="display:none;">載入示範資料</button>
+  </div>
+  <div id="uploadError" class="upload-error" style="display:none;"></div>
+  <div class="upload-note">兩份檔案的頁簽名稱與欄位格式須與固定範本一致；月份會依檔案內容自動偵測。<br>本工具純前端運作，關閉分頁即清除資料，適合部署於 GitHub Pages 重複使用。</div>
+</div>
+
+<!-- ===================== APP ===================== -->
+<div id="app" style="display: block;">
+<div class="container">
+
+  <div class="tabbar-wrap">
+    <div class="tabbar" role="tablist">
+      <button class="tab-btn active" data-tab="overview" type="button"><span class="tab-num">1</span>一區扣分總覽與分析</button>
+      <button class="tab-btn" data-tab="ranking" type="button"><span class="tab-num">2</span>成績與總排名</button>
+      <button class="tab-btn" data-tab="cases" type="button"><span class="tab-num">3</span>缺失案件明細</button>
+    </div>
+  </div>
+
+  <!-- TAB 1: OVERVIEW -->
+  <div class="tab-panel active" id="panel-overview"><div class="section-head"><h2>一區扣分總覽與分析</h2><span class="section-sub">115年8月　累計數據（自年初迄本期）</span></div><div class="block kpi-grid"><div class="kpi-card tone-navy"><div class="kpi-bar"></div><div class="kpi-label">後送總案件數</div><div class="kpi-value">8,267</div><div class="kpi-foot">件（累計）</div></div><div class="kpi-card tone-coral"><div class="kpi-bar"></div><div class="kpi-label">逾期案件</div><div class="kpi-value">12</div><div class="kpi-foot">件（累計）</div></div><div class="kpi-card tone-amber"><div class="kpi-bar"></div><div class="kpi-label">重複案件</div><div class="kpi-value">9</div><div class="kpi-foot">件（累計）</div></div><div class="kpi-card tone-amber"><div class="kpi-bar"></div><div class="kpi-label">不滿意案件</div><div class="kpi-value">0</div><div class="kpi-foot">件（累計）</div></div><div class="kpi-card tone-coral"><div class="kpi-bar"></div><div class="kpi-label">扣分總計（推算）</div><div class="kpi-value">22</div><div class="kpi-foot">件</div></div><div class="kpi-card tone-teal"><div class="kpi-bar"></div><div class="kpi-label">扣分案件佔比</div><div class="kpi-value">0.27%</div><div class="kpi-foot">佔後送總案件</div></div></div><div class="block grid-2"><div class="card"><div class="card-title">月份趨勢與扣分成分</div><div class="card-sub">各月「逾期／重複／不滿意」案件件數（依可用月份自動延伸）</div><div class="chart-box tall"><canvas id="chartMonthlyTrend" width="607" height="360" style="display: block; box-sizing: border-box; height: 360px; width: 607px; cursor: default;"></canvas></div></div><div class="card"><div class="card-title">扣分成分佔比</div><div class="card-sub">本期累計扣分件數組成</div><div class="chart-box tall"><canvas id="chartDeductPie" width="500" height="360" style="display: block; box-sizing: border-box; height: 360px; width: 500px;"></canvas></div></div></div><div class="block"><div class="card"><div class="card-title">轄下廠所／單位扣分排行</div><div class="card-sub">依累計扣分件數（逾期＋重複＋停水公告＋服務態度）排序，找出責任單位</div><div class="chart-box tall"><canvas id="chartStationRank" width="1162" height="360" style="display: block; box-sizing: border-box; height: 360px; width: 1162px;"></canvas></div></div></div><div class="block"><div class="section-head"><h2 style="font-size:16.5px;">廠所／單位明細表</h2></div><div class="table-wrap"><table><thead><tr><th>單位／廠所</th><th class="num">後送總案件數</th><th class="num">不滿意/服務態度(累計/當月)</th><th class="num">逾期(累計/當月)</th><th class="num">重複(累計/當月)</th><th class="num">電話/停水公告(累計/當月)</th><th class="num">扣分推算(累計)</th><th>查覆說明</th></tr></thead><tbody><tr class="row-hq"><td>區處　<span class="badge badge-amber">業務課／區處</span></td><td class="num">41</td><td class="num">1 / <b class="month-figure">1</b></td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">1</td><td>—</td></tr><tr><td>新山廠</td><td class="num">2,997</td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">10 / <b class="month-figure">3</b></td><td class="num">4 / <b class="month-figure">0</b></td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">14</td><td>—</td></tr><tr><td>淡水所</td><td class="num">1,736</td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">3 / <b class="month-figure">0</b></td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">3</td><td>—</td></tr><tr><td>瑞芳所</td><td class="num">399</td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">2 / <b class="month-figure">0</b></td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">2</td><td>—</td></tr><tr><td>汐止所</td><td class="num">1,291</td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">1 / <b class="month-figure">0</b></td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">1</td><td>—</td></tr><tr><td>貢雙所</td><td class="num">79</td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">1 / <b class="month-figure">0</b></td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">1</td><td>—</td></tr><tr><td>基隆所</td><td class="num">1,244</td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">0</td><td>—</td></tr><tr><td>萬金所</td><td class="num">143</td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">0</td><td>—</td></tr><tr><td>文山所</td><td class="num">337</td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">0</td><td>—</td></tr><tr class="row-total"><td>總計</td><td class="num">8,267</td><td class="num">1 / <b class="month-figure">1</b></td><td class="num">12 / <b class="month-figure">3</b></td><td class="num">9 / <b class="month-figure">0</b></td><td class="num">0 / <b class="month-figure">0</b></td><td class="num">22</td><td>—</td></tr></tbody></table></div></div></div>
+
+  <!-- TAB 2: RANKING -->
+  <div class="tab-panel" id="panel-ranking"><div class="section-head"><h2>成績與總排名</h2><span class="section-sub">「三、客服服務」類別　累計加總後排名（1月～8月）</span></div><div class="block kpi-grid"><div class="kpi-card tone-teal"><div class="kpi-bar"></div><div class="kpi-label">一區累計總分</div><div class="kpi-value">722.90</div><div class="kpi-foot">客服服務類別・全期加總</div></div><div class="kpi-card tone-navy"><div class="kpi-bar"></div><div class="kpi-label">一區總排名</div><div class="kpi-value">第 9 名</div><div class="kpi-foot">全公司共 13 個區處</div></div><div class="kpi-card tone-teal"><div class="kpi-bar"></div><div class="kpi-label">目前第一名</div><div class="kpi-value">8區　728.70</div><div class="kpi-foot">標竿對象</div></div><div class="kpi-card tone-coral"><div class="kpi-bar"></div><div class="kpi-label">與第一名差距</div><div class="kpi-value">-5.80</div><div class="kpi-foot">分（累計）</div></div></div><div class="block"><div class="card"><div class="card-title">全區處累計總分排行榜</div><div class="card-sub">依「三、客服服務」累計加總分數排序，一區以深色標示</div><div class="chart-box tall"><canvas id="chartRegionRankBar" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div></div><div class="block table-wrap"><table><thead><tr><th style="width:70px;">排名</th><th>區處</th><th class="num">累計總分</th><th class="num">與第一名差距</th></tr></thead><tbody><tr><td><span class="rank-pill gold">1</span></td><td>8區</td><td class="num">728.70</td><td class="num">0.00</td></tr><tr><td><span class="rank-pill ">2</span></td><td>10區</td><td class="num">728.08</td><td class="num">-0.62</td></tr><tr><td><span class="rank-pill ">3</span></td><td>9區</td><td class="num">727.61</td><td class="num">-1.08</td></tr><tr><td><span class="rank-pill ">4</span></td><td>5區</td><td class="num">727.42</td><td class="num">-1.28</td></tr><tr><td><span class="rank-pill ">5</span></td><td>11區</td><td class="num">725.12</td><td class="num">-3.58</td></tr><tr><td><span class="rank-pill ">6</span></td><td>6區</td><td class="num">724.78</td><td class="num">-3.91</td></tr><tr><td><span class="rank-pill ">7</span></td><td>12區</td><td class="num">723.86</td><td class="num">-4.84</td></tr><tr><td><span class="rank-pill ">8</span></td><td>2區</td><td class="num">723.45</td><td class="num">-5.24</td></tr><tr class="own-row"><td><span class="rank-pill self">9</span></td><td>1區　<span class="badge badge-teal">一區（本區）</span></td><td class="num">722.90</td><td class="num">-5.80</td></tr><tr><td><span class="rank-pill ">10</span></td><td>4區</td><td class="num">722.19</td><td class="num">-6.50</td></tr><tr><td><span class="rank-pill ">11</span></td><td>3區</td><td class="num">721.22</td><td class="num">-7.48</td></tr><tr><td><span class="rank-pill ">12</span></td><td>7區</td><td class="num">718.12</td><td class="num">-10.58</td></tr><tr><td><span class="rank-pill ">13</span></td><td>屏東區</td><td class="num">698.66</td><td class="num">-30.04</td></tr></tbody></table></div><div class="block" style="margin-top:26px;"><div class="card"><div class="card-title">各月得分與排名</div><div class="card-sub">各區逐月「加總得分」與「排名」，一區整列標色</div><div class="table-wrap" id="scoreRankTableWrap"><table class="score-rank-table"><thead><tr><th class="rowlabel">區處</th><th colspan="2">1月</th><th colspan="2">2月</th><th colspan="2">3月</th><th colspan="2">4月</th><th colspan="2">5月</th><th colspan="2">6月</th><th colspan="2">7月</th><th colspan="2">8月</th></tr><tr><th class="rowlabel"></th><th class="sub">分數</th><th class="sub">排名</th><th class="sub">分數</th><th class="sub">排名</th><th class="sub">分數</th><th class="sub">排名</th><th class="sub">分數</th><th class="sub">排名</th><th class="sub">分數</th><th class="sub">排名</th><th class="sub">分數</th><th class="sub">排名</th><th class="sub">分數</th><th class="sub">排名</th><th class="sub">分數</th><th class="sub">排名</th></tr></thead><tbody><tr class="own-row"><td class="rowlabel">1區　<span class="badge badge-teal">本區</span></td><td class="num">89.82</td><td class="num ">10</td><td class="num">90.29</td><td class="num rank-bad">11</td><td class="num">89.95</td><td class="num rank-bad">11</td><td class="num">90.30</td><td class="num ">9</td><td class="num">90.73</td><td class="num ">5</td><td class="num">89.98</td><td class="num rank-bad">11</td><td class="num">91.11</td><td class="num rank-good">2</td><td class="num">90.73</td><td class="num ">4</td></tr><tr><td class="rowlabel">2區</td><td class="num">90.43</td><td class="num ">6</td><td class="num">90.71</td><td class="num ">8</td><td class="num">90.92</td><td class="num ">5</td><td class="num">90.42</td><td class="num ">8</td><td class="num">89.92</td><td class="num rank-bad">11</td><td class="num">90.08</td><td class="num ">10</td><td class="num">90.37</td><td class="num ">7</td><td class="num">90.60</td><td class="num ">6</td></tr><tr><td class="rowlabel">3區</td><td class="num">90.27</td><td class="num ">8</td><td class="num">90.70</td><td class="num ">9</td><td class="num">90.41</td><td class="num ">9</td><td class="num">90.17</td><td class="num ">10</td><td class="num">90.36</td><td class="num ">9</td><td class="num">89.97</td><td class="num rank-bad">12</td><td class="num">89.63</td><td class="num ">10</td><td class="num">89.70</td><td class="num rank-bad">11</td></tr><tr><td class="rowlabel">4區</td><td class="num">89.65</td><td class="num rank-bad">11</td><td class="num">91.33</td><td class="num ">4</td><td class="num">90.77</td><td class="num ">8</td><td class="num">89.80</td><td class="num rank-bad">12</td><td class="num">89.71</td><td class="num rank-bad">12</td><td class="num">90.59</td><td class="num ">6</td><td class="num">90.14</td><td class="num ">9</td><td class="num">90.20</td><td class="num ">10</td></tr><tr><td class="rowlabel">5區</td><td class="num">90.41</td><td class="num ">7</td><td class="num">91.29</td><td class="num ">5</td><td class="num">91.09</td><td class="num rank-good">3</td><td class="num">90.79</td><td class="num rank-good">3</td><td class="num">91.00</td><td class="num rank-good">3</td><td class="num">91.00</td><td class="num rank-good">1</td><td class="num">90.97</td><td class="num ">4</td><td class="num">90.88</td><td class="num rank-good">2</td></tr><tr><td class="rowlabel">6區</td><td class="num">90.43</td><td class="num ">5</td><td class="num">90.84</td><td class="num ">7</td><td class="num">90.82</td><td class="num ">7</td><td class="num">90.45</td><td class="num ">7</td><td class="num">90.54</td><td class="num ">7</td><td class="num">90.78</td><td class="num ">4</td><td class="num">90.70</td><td class="num ">6</td><td class="num">90.22</td><td class="num ">9</td></tr><tr><td class="rowlabel">7區</td><td class="num">88.67</td><td class="num rank-bad">12</td><td class="num">89.84</td><td class="num rank-bad">12</td><td class="num">89.93</td><td class="num rank-bad">12</td><td class="num">89.91</td><td class="num rank-bad">11</td><td class="num">90.04</td><td class="num ">10</td><td class="num">90.79</td><td class="num rank-good">3</td><td class="num">89.30</td><td class="num rank-bad">12</td><td class="num">89.64</td><td class="num rank-bad">12</td></tr><tr><td class="rowlabel">8區</td><td class="num">90.05</td><td class="num ">9</td><td class="num">91.69</td><td class="num rank-good">1</td><td class="num">91.55</td><td class="num rank-good">1</td><td class="num">91.29</td><td class="num rank-good">2</td><td class="num">91.03</td><td class="num rank-good">1</td><td class="num">90.66</td><td class="num ">5</td><td class="num">91.57</td><td class="num rank-good">1</td><td class="num">90.86</td><td class="num rank-good">3</td></tr><tr><td class="rowlabel">9區</td><td class="num">91.32</td><td class="num rank-good">1</td><td class="num">90.42</td><td class="num ">10</td><td class="num">91.14</td><td class="num rank-good">2</td><td class="num">91.46</td><td class="num rank-good">1</td><td class="num">91.03</td><td class="num rank-good">2</td><td class="num">90.88</td><td class="num rank-good">2</td><td class="num">91.06</td><td class="num rank-good">3</td><td class="num">90.31</td><td class="num ">7</td></tr><tr><td class="rowlabel">10區</td><td class="num">91.06</td><td class="num rank-good">2</td><td class="num">91.63</td><td class="num rank-good">2</td><td class="num">91.08</td><td class="num ">4</td><td class="num">90.71</td><td class="num ">5</td><td class="num">90.86</td><td class="num ">4</td><td class="num">90.36</td><td class="num ">8</td><td class="num">90.85</td><td class="num ">5</td><td class="num">91.52</td><td class="num rank-good">1</td></tr><tr><td class="rowlabel">11區</td><td class="num">90.62</td><td class="num ">4</td><td class="num">91.46</td><td class="num rank-good">3</td><td class="num">90.34</td><td class="num ">10</td><td class="num">90.74</td><td class="num ">4</td><td class="num">90.48</td><td class="num ">8</td><td class="num">90.50</td><td class="num ">7</td><td class="num">90.35</td><td class="num ">8</td><td class="num">90.64</td><td class="num ">5</td></tr><tr><td class="rowlabel">12區</td><td class="num">90.72</td><td class="num rank-good">3</td><td class="num">90.88</td><td class="num ">6</td><td class="num">90.87</td><td class="num ">6</td><td class="num">90.66</td><td class="num ">6</td><td class="num">90.57</td><td class="num ">6</td><td class="num">90.34</td><td class="num ">9</td><td class="num">89.55</td><td class="num rank-bad">11</td><td class="num">90.26</td><td class="num ">8</td></tr><tr><td class="rowlabel">屏東區</td><td class="num">88.00</td><td class="num rank-bad">13</td><td class="num">87.24</td><td class="num rank-bad">13</td><td class="num">86.97</td><td class="num rank-bad">13</td><td class="num">87.29</td><td class="num rank-bad">13</td><td class="num">86.44</td><td class="num rank-bad">13</td><td class="num">87.45</td><td class="num rank-bad">13</td><td class="num">88.63</td><td class="num rank-bad">13</td><td class="num">86.64</td><td class="num rank-bad">13</td></tr></tbody></table></div></div></div><div class="block" style="margin-top:16px;"><div class="card"><div class="card-title">一區　各月排名趨勢</div><div class="card-sub">數值越低代表名次越前面</div><div class="chart-box tall"><canvas id="chartRankTrend" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div></div></div>
+
+  <!-- TAB 3: CASES -->
+  <div class="tab-panel" id="panel-cases"><div class="section-head"><h2>缺失案件明細</h2><span class="section-sub">共 21 筆　（重複案件 9・逾期案件 12・不滿意案件 0）</span></div><div class="note-banner"><svg viewBox="0 0 24 24" fill="none"><path d="M12 8v5M12 16h.01M12 3l9 16H3L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path></svg><div>115年目前累計暫無『不滿意案件』</div></div><div class="filters"><select id="fType"><option value="all">全部類別</option><option value="duplicate">重複案件</option><option value="overdue">逾期案件</option></select><select id="fStation"><option value="all">全部廠所</option><option value="新山廠">新山廠</option><option value="汐止所">汐止所</option><option value="淡水所">淡水所</option><option value="瑞芳所">瑞芳所</option><option value="貢雙所">貢雙所</option></select><select id="fMonth"><option value="all">全部月份</option><option value="1月">1月</option><option value="2月">2月</option><option value="3月">3月</option><option value="4月">4月</option><option value="6月">6月</option><option value="8月">8月</option></select><input type="text" id="fQuery" placeholder="搜尋案件編號／地址／內容關鍵字…"><button type="button" class="btn btn-ghost btn-sm" id="btnClearFilters">清除篩選</button><span class="filter-count" id="fCount">顯示 21 / 21 筆</span></div><div class="case-list" id="caseList"><div class="case-item type-duplicate" data-idx="0"><div class="case-top"><div><span class="badge badge-coral">重複案件</span>　<span class="case-id">20260037801</span></div><div class="case-meta"><span class="station-badge" style="background:#FBEFE0;color:#9A6420;">淡水所</span><span>・1月</span><span>・2026/01/22 09:01</span></div></div><div class="case-desc clamp2">續:20260028073-已婉釋案件內容，但用戶表示上禮拜有人員前往拍照勘查後，後續都無人前往維修，用戶表示因目前還是在漏水，想了解預計施工日期，煩請協助確認後去電說明，煩請協助。</div><div class="case-info"><div class="case-info-row"><span class="case-info-label">地址</span><span class="case-info-value">新北市淡水區新義里新生街19巷巷底</span></div><div class="case-info-row"><span class="case-info-label">案別</span><span class="case-info-value case-info-value-flag">修漏</span></div><div class="case-info-row"><span class="case-info-label">「前案」結案內容</span><span class="case-info-value">已勘察,另請修漏派工。</span></div><div class="case-info-row"><span class="case-info-label">申覆結果、未通過原因</span><span class="case-info-value case-info-value-flag">1/29 已修復。
+前案未改善，無法申覆。</span></div></div><div class="case-detail"><div><b>前案號：</b>1B11500124</div><div><b>是否扣分：</b><span class="badge badge-coral">扣分</span></div></div></div><div class="case-item type-duplicate" data-idx="1"><div class="case-top"><div><span class="badge badge-coral">重複案件</span>　<span class="case-id">20260048989</span></div><div class="case-meta"><span class="station-badge" style="background:#E3EEFB;color:#1B5FA8;">新山廠</span><span>・1月</span><span>・2026/01/29 11:12</span></div></div><div class="case-desc clamp2">續20260043428， 20260045193，民眾反映先前有報修漏水量大，本公司有派員前往查看，但仍未處理，線上已婉釋前案處理情形(因漏水點不明須檢測後施工)，但民眾仍表示對處理速度不滿，要求盡速派員處理，目前仍漏水量大，煩請協助。</div><div class="case-info"><div class="case-info-row"><span class="case-info-label">地址</span><span class="case-info-value">基隆市中山區仁正里中山二路109巷X號</span></div><div class="case-info-row"><span class="case-info-label">案別</span><span class="case-info-value case-info-value-flag">修漏</span></div><div class="case-info-row"><span class="case-info-label">「前案」結案內容</span><span class="case-info-value">因漏水點不明須檢測後施工。 </span></div><div class="case-info-row"><span class="case-info-label">申覆結果、未通過原因</span><span class="case-info-value case-info-value-flag">2/7 已修復。
+前案未改善，無法申覆。</span></div></div><div class="case-detail"><div><b>前案號：</b>1R11501125</div><div><b>是否扣分：</b><span class="badge badge-coral">扣分</span></div></div></div><div class="case-item type-duplicate" data-idx="2"><div class="case-top"><div><span class="badge badge-coral">重複案件</span>　<span class="case-id">20260104374</span></div><div class="case-meta"><span class="station-badge" style="background:#FBEFE0;color:#9A6420;">淡水所</span><span>・3月</span><span>・2026/03/07 10:07</span></div></div><div class="case-desc clamp2">續20260080723，民眾再次進線，表示本公司人員已前往處理並鋪柏油，且另註記會再進行第二次鋪柏油，但民眾發現此址路中仍會漏水，漏水量小，不影響交通，煩請協助</div><div class="case-info"><div class="case-info-row"><span class="case-info-label">地址</span><span class="case-info-value">新北市淡水區油車里淡海路X號</span></div><div class="case-info-row"><span class="case-info-label">案別</span><span class="case-info-value case-info-value-flag">修漏</span></div><div class="case-info-row"><span class="case-info-label">「前案」結案內容</span><span class="case-info-value">排修</span></div><div class="case-info-row"><span class="case-info-label">申覆結果、未通過原因</span><span class="case-info-value case-info-value-flag">複查無漏水，但總處發現前案提早結案，故總處不給過。</span></div></div><div class="case-detail"><div><b>前案號：</b>1B11500274</div><div><b>是否扣分：</b><span class="badge badge-coral">扣分</span></div></div></div><div class="case-item type-duplicate" data-idx="3"><div class="case-top"><div><span class="badge badge-coral">重複案件</span>　<span class="case-id">20260113337</span></div><div class="case-meta"><span class="station-badge" style="background:#FBEFE0;color:#9A6420;">淡水所</span><span>・3月</span><span>・2026/03/12 15:36</span></div></div><div class="case-desc clamp2">續-20260085021 陳小姐反映路邊總表前外管線漏水量由小變大多日，暫不影響交通，線上已婉釋前案處理結果，請能盡快處理。</div><div class="case-info"><div class="case-info-row"><span class="case-info-label">地址</span><span class="case-info-value">新北市三芝區埔頭里中興街１段X號</span></div><div class="case-info-row"><span class="case-info-label">案別</span><span class="case-info-value case-info-value-flag">修漏</span></div><div class="case-info-row"><span class="case-info-label">「前案」結案內容</span><span class="case-info-value">排修</span></div><div class="case-info-row"><span class="case-info-label">申覆結果、未通過原因</span><span class="case-info-value case-info-value-flag">已於3/14修復。
+前案未改善，無法申覆。</span></div></div><div class="case-detail"><div><b>前案號：</b>1B11500290</div><div><b>是否扣分：</b><span class="badge badge-coral">扣分</span></div></div></div><div class="case-item type-duplicate" data-idx="4"><div class="case-top"><div><span class="badge badge-coral">重複案件</span>　<span class="case-id">20260140797</span></div><div class="case-meta"><span class="station-badge" style="background:#FCE8EF;color:#A83368;">貢雙所</span><span>・3月</span><span>・2026/03/30 09:58</span></div></div><div class="case-desc clamp2">續:20260131261，民眾反映已有人員前往，但尚未修繕，且目前還在漏水，線上已婉釋修繕結果，另告知因要協調公車路線後才可協助開挖，民眾不接受，要求速處，並須先去電說明，另提及要訴諸媒體，煩請協助並回復。</div><div class="case-info"><div class="case-info-row"><span class="case-info-label">地址</span><span class="case-info-value">新北市貢寮區和美里龍洞街X號前方路中間</span></div><div class="case-info-row"><span class="case-info-label">案別</span><span class="case-info-value case-info-value-flag">修漏</span></div><div class="case-info-row"><span class="case-info-label">「前案」結案內容</span><span class="case-info-value">因消防栓位於狹窄道路中央，開挖後公車無法通過，需先協調公車路線更換再行開挖。</span></div><div class="case-info-row"><span class="case-info-label">申覆結果、未通過原因</span><span class="case-info-value case-info-value-flag">3/31已修復。
+前案未改善，無法申覆。</span></div></div><div class="case-detail"><div><b>前案號：</b>1G11500063</div><div><b>是否扣分：</b><span class="badge badge-coral">扣分</span></div></div></div><div class="case-item type-duplicate" data-idx="5"><div class="case-top"><div><span class="badge badge-coral">重複案件</span>　<span class="case-id">20260152999</span></div><div class="case-meta"><span class="station-badge" style="background:#E3EEFB;color:#1B5FA8;">新山廠</span><span>・4月</span><span>・2026/04/07 19:28</span></div></div><div class="case-desc clamp2">續20260145810，用戶再次進線表示水壓仍低，提及人員告知前段供壓不足
+，但無後續實際改善，煩請協助與回復。</div><div class="case-info"><div class="case-info-row"><span class="case-info-label">地址</span><span class="case-info-value">基隆市暖暖區八西里八堵路１巷X號</span></div><div class="case-info-row"><span class="case-info-label">案別</span><span class="case-info-value case-info-value-flag">供水量</span></div><div class="case-info-row"><span class="case-info-label">「前案」結案內容</span><span class="case-info-value">拆表試壓約0.5公斤，電洽用戶無人接聽。</span></div><div class="case-info-row"><span class="case-info-label">申覆結果、未通過原因</span><span class="case-info-value case-info-value-flag">4/12 改善完成，拆表示壓1.8kg，供水正常。
+總處認定前案未改善完成，故申覆失敗。</span></div></div><div class="case-detail"><div><b>前案號：</b>1R11502106</div><div><b>是否扣分：</b><span class="badge badge-coral">扣分</span></div></div></div><div class="case-item type-duplicate" data-idx="6"><div class="case-top"><div><span class="badge badge-coral">重複案件</span>　<span class="case-id">20260160461</span></div><div class="case-meta"><span class="station-badge" style="background:#E6F3E9;color:#2C7A4B;">汐止所</span><span>・4月</span><span>・2026/04/11 15:28</span></div></div><div class="case-desc clamp2">前案20260157494、20260158463，線上已婉釋處理結果，但新北市政府道路管理中心說明已致電民眾，民眾表示現場地下型消防栓孔蓋不平整(無漏水)，且車輛路經仍會有聲響，煩請再次協助改善並回復，謝謝。</div><div class="case-info"><div class="case-info-row"><span class="case-info-label">地址</span><span class="case-info-value">新北市汐止區拱北里汐萬路２段X號</span></div><div class="case-info-row"><span class="case-info-label">案別</span><span class="case-info-value case-info-value-flag">修漏</span></div><div class="case-info-row"><span class="case-info-label">「前案」結案內容</span><span class="case-info-value">本案已改善完成。</span></div><div class="case-info-row"><span class="case-info-label">申覆結果、未通過原因</span><span class="case-info-value case-info-value-flag">4/13 提升改善完成。
+前案改善後又再次發生，申覆失敗。</span></div></div><div class="case-detail"><div><b>前案號：</b>1D11500272</div><div><b>是否扣分：</b><span class="badge badge-coral">扣分</span></div></div></div><div class="case-item type-duplicate" data-idx="7"><div class="case-top"><div><span class="badge badge-coral">重複案件</span>　<span class="case-id">20260247267、
+20260251601</span></div><div class="case-meta"><span class="station-badge" style="background:#E3EEFB;color:#1B5FA8;">新山廠</span><span>・6月</span><span>・2026/06/04 10:06</span></div></div><div class="case-desc clamp2">續20260227612，里長再次進線，反映人員隔日已前往檢測確認到漏水點，但至今仍未前往修繕，漏水量變大，會影響住戶通行且導致住家地基流失，煩請協助</div><div class="case-info"><div class="case-info-row"><span class="case-info-label">地址</span><span class="case-info-value">基隆市中山區太白里光華路37巷X號</span></div><div class="case-info-row"><span class="case-info-label">案別</span><span class="case-info-value case-info-value-flag">修漏</span></div><div class="case-info-row"><span class="case-info-label">「前案」結案內容</span><span class="case-info-value">須檢測後施工。</span></div><div class="case-info-row"><span class="case-info-label">申覆結果、未通過原因</span><span class="case-info-value case-info-value-flag">6/10 修復。</span></div></div><div class="case-detail"><div><b>前案號：</b>1R11502779</div><div><b>是否扣分：</b><span class="badge badge-coral">扣分</span></div></div></div><div class="case-item type-duplicate" data-idx="8"><div class="case-top"><div><span class="badge badge-coral">重複案件</span>　<span class="case-id">20260261499</span></div><div class="case-meta"><span class="station-badge" style="background:#E3EEFB;color:#1B5FA8;">新山廠</span><span>・6月</span><span>・2026/06/13 13:20</span></div></div><div class="case-desc clamp2">續20260253128，小姐表示先前有反映該址路邊漏水，沒有修繕確實，目前一樣漏水中，漏水時間已經好幾天，漏水量大，暫時不影響交通，但漏水有流到其他店家門口，煩請協助處理。</div><div class="case-info"><div class="case-info-row"><span class="case-info-label">地址</span><span class="case-info-value">基隆市中正區建國里祥豐街449巷X號前</span></div><div class="case-info-row"><span class="case-info-label">案別</span><span class="case-info-value case-info-value-flag">修漏</span></div><div class="case-info-row"><span class="case-info-label">「前案」結案內容</span><span class="case-info-value">已修復。</span></div><div class="case-info-row"><span class="case-info-label">申覆結果、未通過原因</span><span class="case-info-value case-info-value-flag">6/17下午已修復。
+前案未改善，無法申覆。</span></div></div><div class="case-detail"><div><b>前案號：</b>1R11503111</div><div><b>是否扣分：</b><span class="badge badge-coral">扣分</span></div></div></div><div class="case-item type-overdue" data-idx="9"><div class="case-top"><div><span class="badge badge-amber">逾期案件</span>　<span class="case-id">20260022124</span></div><div class="case-meta"><span class="station-badge" style="background:#E3EEFB;color:#1B5FA8;">新山廠</span><span>・1月</span><span>・2026/01/13 15:50</span></div></div><div class="case-desc clamp2">經勘查已有水。</div><div class="case-info"><div class="case-info-row"><span class="case-info-label">地址</span><span class="case-info-value">基隆市中山區新建里成功二路１６１號X樓</span></div><div class="case-info-row"><span class="case-info-label">案別</span><span class="case-info-value case-info-value-flag">供水量</span></div><div class="case-info-row"><span class="case-info-label">申覆結果、未通過原因</span><span class="case-info-value case-info-value-flag">疏漏</span></div></div><div class="case-detail"><div><b>處理時效：</b>35.9 小時</div><div><b>修漏案號：</b>1R11500227</div><div><b>逾期情形／說明：</b>—</div></div></div><div class="case-item type-overdue" data-idx="10"><div class="case-top"><div><span class="badge badge-amber">逾期案件</span>　<span class="case-id">20260022338</span></div><div class="case-meta"><span class="station-badge" style="background:#E3EEFB;color:#1B5FA8;">新山廠</span><span>・1月</span><span>・2026/01/13 17:05</span></div></div><div class="case-desc clamp2">經調節水壓正常。 </div><div class="case-info"><div class="case-info-row"><span class="case-info-label">地址</span><span class="case-info-value">基隆市中山區德和里復興路２１２巷X弄X號</span></div><div class="case-info-row"><span class="case-info-label">案別</span><span class="case-info-value case-info-value-flag">供水量</span></div><div class="case-info-row"><span class="case-info-label">申覆結果、未通過原因</span><span class="case-info-value case-info-value-flag">疏漏</span></div></div><div class="case-detail"><div><b>處理時效：</b>34.7 小時</div><div><b>修漏案號：</b>1R11500237</div><div><b>逾期情形／說明：</b>—</div></div></div><div class="case-item type-overdue" data-idx="11"><div class="case-top"><div><span class="badge badge-amber">逾期案件</span>　<span class="case-id">20260025038</span></div><div class="case-meta"><span class="station-badge" style="background:#E3EEFB;color:#1B5FA8;">新山廠</span><span>・1月</span><span>・2026/01/15 08:02</span></div></div><div class="case-desc clamp2">經勘查已有水。 </div><div class="case-info"><div class="case-info-row"><span class="case-info-label">地址</span><span class="case-info-value">基隆市中山區西定路２９６巷X號５樓</span></div><div class="case-info-row"><span class="case-info-label">案別</span><span class="case-info-value case-info-value-flag">供水量</span></div><div class="case-info-row"><span class="case-info-label">申覆結果、未通過原因</span><span class="case-info-value case-info-value-flag">疏漏</span></div></div><div class="case-detail"><div><b>處理時效：</b>27.1 小時</div><div><b>修漏案號：</b>1R11500262</div><div><b>逾期情形／說明：</b>—</div></div></div><div class="case-item type-overdue" data-idx="12"><div class="case-top"><div><span class="badge badge-amber">逾期案件</span>　<span class="case-id">20260026108</span></div><div class="case-meta"><span class="station-badge" style="background:#E3EEFB;color:#1B5FA8;">新山廠</span><span>・1月</span><span>・2026/01/15 15:22</span></div></div><div class="case-desc clamp2">備料後施工。</div><div class="case-info"><div class="case-info-row"><span class="case-info-label">地址</span><span class="case-info-value">基隆市安樂區長樂里樂利三街X之6號</span></div><div class="case-info-row"><span class="case-info-label">案別</span><span class="case-info-value case-info-value-flag">修漏</span></div><div class="case-info-row"><span class="case-info-label">申覆結果、未通過原因</span><span class="case-info-value case-info-value-flag">疏漏</span></div></div><div class="case-detail"><div><b>處理時效：</b>38.5 小時</div><div><b>修漏案號：</b>1R11500273</div><div><b>逾期情形／說明：</b>—</div></div></div><div class="case-item type-overdue" data-idx="13"><div class="case-top"><div><span class="badge badge-amber">逾期案件</span>　<span class="case-id">20260048967</span></div><div class="case-meta"><span class="station-badge" style="background:#E3EEFB;color:#1B5FA8;">新山廠</span><span>・1月</span><span>・2026/01/29 11:05</span></div></div><div class="case-desc clamp2">備料後施工。</div><div class="case-info"><div class="case-info-row"><span class="case-info-label">地址</span><span class="case-info-value">基隆市中山區仁正里中山二路109巷X號</span></div><div class="case-info-row"><span class="case-info-label">案別</span><span class="case-info-value case-info-value-flag">修漏</span></div><div class="case-info-row"><span class="case-info-label">申覆結果、未通過原因</span><span class="case-info-value case-info-value-flag">疏漏</span></div></div><div class="case-detail"><div><b>處理時效：</b>29.8 小時</div><div><b>修漏案號：</b>1R11501143</div><div><b>逾期情形／說明：</b>—</div></div></div><div class="case-item type-overdue" data-idx="14"><div class="case-top"><div><span class="badge badge-amber">逾期案件</span>　<span class="case-id">20260056303</span></div><div class="case-meta"><span class="station-badge" style="background:#F2E7FA;color:#7A44A6;">瑞芳所</span><span>・2月</span><span>・2026/02/03 15:13</span></div></div><div class="case-desc clamp2">已正常供水。</div><div class="case-info"><div class="case-info-row"><span class="case-info-label">地址</span><span class="case-info-value">新北市瑞芳區爪峯里三爪子坑路１１１巷X號１樓</span></div><div class="case-info-row"><span class="case-info-label">案別</span><span class="case-info-value case-info-value-flag">供水量</span></div><div class="case-info-row"><span class="case-info-label">申覆結果、未通過原因</span><span class="case-info-value case-info-value-flag">疏漏</span></div></div><div class="case-detail"><div><b>處理時效：</b>24.4 小時</div><div><b>修漏案號：</b>1C11500042</div><div><b>逾期情形／說明：</b>—</div></div></div><div class="case-item type-overdue" data-idx="15"><div class="case-top"><div><span class="badge badge-amber">逾期案件</span>　<span class="case-id">20260057332</span></div><div class="case-meta"><span class="station-badge" style="background:#E3EEFB;color:#1B5FA8;">新山廠</span><span>・2月</span><span>・2026/02/04 10:29</span></div></div><div class="case-desc clamp2">需配料後進場。</div><div class="case-info"><div class="case-info-row"><span class="case-info-label">地址</span><span class="case-info-value">基隆市安樂區永康里崇德路10巷X號旁</span></div><div class="case-info-row"><span class="case-info-label">案別</span><span class="case-info-value case-info-value-flag">修漏</span></div><div class="case-info-row"><span class="case-info-label">申覆結果、未通過原因</span><span class="case-info-value case-info-value-flag">疏漏</span></div></div><div class="case-detail"><div><b>處理時效：</b>28.0 小時</div><div><b>修漏案號：</b>1R11501225</div><div><b>逾期情形／說明：</b>—</div></div></div><div class="case-item type-overdue" data-idx="16"><div class="case-top"><div><span class="badge badge-amber">逾期案件</span>　<span class="case-id">20260093668</span></div><div class="case-meta"><span class="station-badge" style="background:#E3EEFB;color:#1B5FA8;">新山廠</span><span>・3月</span><span>・2026/03/01 18:35</span></div></div><div class="case-desc clamp2">檢測後施工。</div><div class="case-info"><div class="case-info-row"><span class="case-info-label">地址</span><span class="case-info-value">基隆市信義區仁壽里義五路13巷X號跟7號之間</span></div><div class="case-info-row"><span class="case-info-label">案別</span><span class="case-info-value case-info-value-flag">修漏</span></div><div class="case-info-row"><span class="case-info-label">申覆結果、未通過原因</span><span class="case-info-value case-info-value-flag">疏漏</span></div></div><div class="case-detail"><div><b>處理時效：</b>26.0 小時</div><div><b>修漏案號：</b>1R11501526</div><div><b>逾期情形／說明：</b>—</div></div></div><div class="case-item type-overdue" data-idx="17"><div class="case-top"><div><span class="badge badge-amber">逾期案件</span>　<span class="case-id">20260177884</span></div><div class="case-meta"><span class="station-badge" style="background:#F2E7FA;color:#7A44A6;">瑞芳所</span><span>・4月</span><span>・2026/04/22 09:37</span></div></div><div class="case-desc clamp2">115/04/27複查指針406，115/01/12抄表指針387經查圖檔確認無誤，現場觀察水表正常且無漏水情形。向用戶說明後，用戶對水表準確度仍有疑慮，決定申請水表檢驗，後續協助用戶完成申請。</div><div class="case-info"><div class="case-info-row"><span class="case-info-label">地址</span><span class="case-info-value">新北市瑞芳區銅山里祈堂路X號</span></div><div class="case-info-row"><span class="case-info-label">案別</span><span class="case-info-value case-info-value-flag">帳單</span></div><div class="case-info-row"><span class="case-info-label">申覆結果、未通過原因</span><span class="case-info-value case-info-value-flag">未於期限內展延。</span></div></div><div class="case-detail"><div><b>處理時效：</b>29.5 小時</div><div><b>修漏案號：</b>—</div><div><b>逾期情形／說明：</b>—</div></div></div><div class="case-item type-overdue" data-idx="18"><div class="case-top"><div><span class="badge badge-amber">逾期案件</span>　<span class="case-id">20260379922</span></div><div class="case-meta"><span class="station-badge" style="background:#E3EEFB;color:#1B5FA8;">新山廠</span><span>・8月</span><span>・2026/08/20 11:28</span></div></div><div class="case-desc clamp2">已於8/23日修復完畢。</div><div class="case-info"><div class="case-info-row"><span class="case-info-label">地址</span><span class="case-info-value">基隆市安樂區嘉仁里安樂路１段X號</span></div><div class="case-info-row"><span class="case-info-label">案別</span><span class="case-info-value case-info-value-flag">修漏</span></div><div class="case-info-row"><span class="case-info-label">申覆結果、未通過原因</span><span class="case-info-value case-info-value-flag">疏漏(演習影響)</span></div></div><div class="case-detail"><div><b>處理時效：</b>26.9 小時</div><div><b>修漏案號：</b>1R11504526</div><div><b>逾期情形／說明：</b>—</div></div></div><div class="case-item type-overdue" data-idx="19"><div class="case-top"><div><span class="badge badge-amber">逾期案件</span>　<span class="case-id">20260380257</span></div><div class="case-meta"><span class="station-badge" style="background:#E3EEFB;color:#1B5FA8;">新山廠</span><span>・8月</span><span>・2026/08/20 14:12</span></div></div><div class="case-desc clamp2">已於8/23日修復完畢。</div><div class="case-info"><div class="case-info-row"><span class="case-info-label">地址</span><span class="case-info-value">基隆市安樂區嘉仁里安樂路１段X號</span></div><div class="case-info-row"><span class="case-info-label">案別</span><span class="case-info-value case-info-value-flag">修漏</span></div><div class="case-info-row"><span class="case-info-label">申覆結果、未通過原因</span><span class="case-info-value case-info-value-flag">疏漏(演習影響)</span></div></div><div class="case-detail"><div><b>處理時效：</b>25.2 小時</div><div><b>修漏案號：</b>1R11504530</div><div><b>逾期情形／說明：</b>—</div></div></div><div class="case-item type-overdue" data-idx="20"><div class="case-top"><div><span class="badge badge-amber">逾期案件</span>　<span class="case-id">20260381319</span></div><div class="case-meta"><span class="station-badge" style="background:#E3EEFB;color:#1B5FA8;">新山廠</span><span>・8月</span><span>・2026/08/21 08:54</span></div></div><div class="case-desc clamp2">已轉相關單位處理。 </div><div class="case-info"><div class="case-info-row"><span class="case-info-label">地址</span><span class="case-info-value">基隆市中山區太白里光華路１５巷X號</span></div><div class="case-info-row"><span class="case-info-label">案別</span><span class="case-info-value case-info-value-flag">修漏</span></div><div class="case-info-row"><span class="case-info-label">申覆結果、未通過原因</span><span class="case-info-value case-info-value-flag">疏漏(演習影響)</span></div></div><div class="case-detail"><div><b>處理時效：</b>24.5 小時</div><div><b>修漏案號：</b>1R11504541</div><div><b>逾期情形／說明：</b>—</div></div></div></div></div>
+
+</div>
+<footer class="app-footer">
+  <span class="foot-brand">一區客服績效簡報工具</span>　資料來源：客戶服務業務績效(查核)統計表・排名試算表　｜　純前端解析，僅供內部簡報使用
+</footer>
+</div>
+
+<script id="snapshot-data" type="application/json">{"perf":{"monthLabel":"115年8月","sourceSheet":"11507","stations":[{"name":"基隆所","backTotal":1244,"attitudeCum":null,"attitudeMonth":null,"overdueCum":null,"overdueMonth":null,"dupCum":null,"dupMonth":null,"phoneCum":null,"phoneMonth":null,"deductCum":null,"deductMonth":null,"deductRatio":0,"note":null,"computedDeduct":0,"computedDeductMonth":0},{"name":"新山廠","backTotal":2997,"attitudeCum":null,"attitudeMonth":null,"overdueCum":10,"overdueMonth":3,"dupCum":4,"dupMonth":0,"phoneCum":null,"phoneMonth":null,"deductCum":null,"deductMonth":null,"deductRatio":0.004671338004671338,"note":null,"computedDeduct":14,"computedDeductMonth":3},{"name":"淡水所","backTotal":1736,"attitudeCum":null,"attitudeMonth":null,"overdueCum":null,"overdueMonth":null,"dupCum":3,"dupMonth":0,"phoneCum":null,"phoneMonth":null,"deductCum":null,"deductMonth":null,"deductRatio":0.0017281105990783411,"note":null,"computedDeduct":3,"computedDeductMonth":0},{"name":"瑞芳所","backTotal":399,"attitudeCum":null,"attitudeMonth":null,"overdueCum":2,"overdueMonth":null,"dupCum":0,"dupMonth":null,"phoneCum":null,"phoneMonth":null,"deductCum":null,"deductMonth":null,"deductRatio":0.005012531328320802,"note":null,"computedDeduct":2,"computedDeductMonth":0},{"name":"汐止所","backTotal":1291,"attitudeCum":null,"attitudeMonth":null,"overdueCum":null,"overdueMonth":null,"dupCum":1,"dupMonth":null,"phoneCum":null,"phoneMonth":null,"deductCum":null,"deductMonth":null,"deductRatio":0.000774593338497289,"note":null,"computedDeduct":1,"computedDeductMonth":0},{"name":"萬金所","backTotal":143,"attitudeCum":null,"attitudeMonth":null,"overdueCum":null,"overdueMonth":null,"dupCum":null,"dupMonth":null,"phoneCum":null,"phoneMonth":null,"deductCum":null,"deductMonth":null,"deductRatio":0,"note":null,"computedDeduct":0,"computedDeductMonth":0},{"name":"文山所","backTotal":337,"attitudeCum":null,"attitudeMonth":null,"overdueCum":null,"overdueMonth":null,"dupCum":0,"dupMonth":null,"phoneCum":null,"phoneMonth":null,"deductCum":null,"deductMonth":null,"deductRatio":0,"note":null,"computedDeduct":0,"computedDeductMonth":0},{"name":"貢雙所","backTotal":79,"attitudeCum":null,"attitudeMonth":null,"overdueCum":null,"overdueMonth":null,"dupCum":1,"dupMonth":null,"phoneCum":null,"phoneMonth":null,"deductCum":null,"deductMonth":null,"deductRatio":0.012658227848101266,"note":null,"computedDeduct":1,"computedDeductMonth":0}],"totals":{"name":"總計","backTotal":8267,"attitudeCum":1,"attitudeMonth":1,"overdueCum":12,"overdueMonth":3,"dupCum":9,"dupMonth":0,"phoneCum":0,"phoneMonth":0,"deductCum":0,"deductMonth":0,"deductRatio":0.002661183016813838,"note":null,"computedDeduct":22,"computedDeductMonth":4},"division":{"name":"區處","backTotal":41,"attitudeCum":1,"attitudeMonth":1,"overdueCum":null,"overdueMonth":null,"dupCum":null,"dupMonth":null,"phoneCum":null,"phoneMonth":null,"deductCum":null,"deductMonth":null,"deductRatio":0.024390243902439025,"note":null,"computedDeduct":1,"computedDeductMonth":1},"duplicateCases":[{"type":"duplicate","seq":3,"caseId":"20260037801","reportTime":"2026/01/22 09:01","month":"1月","description":"續:20260028073-已婉釋案件內容，但用戶表示上禮拜有人員前往拍照勘查後，後續都無人前往維修，用戶表示因目前還是在漏水，想了解預計施工日期，煩請協助確認後去電說明，煩請協助。","address":"新北市淡水區新義里新生街19巷巷底","category":"修漏","prevCase":"1B11500124","prevResult":"已勘察,另請修漏派工。","appealResult":"1/29 已修復。\n前案未改善，無法申覆。","station":"淡水所","deducted":true},{"type":"duplicate","seq":5,"caseId":"20260048989","reportTime":"2026/01/29 11:12","month":"1月","description":"續20260043428， 20260045193，民眾反映先前有報修漏水量大，本公司有派員前往查看，但仍未處理，線上已婉釋前案處理情形(因漏水點不明須檢測後施工)，但民眾仍表示對處理速度不滿，要求盡速派員處理，目前仍漏水量大，煩請協助。","address":"基隆市中山區仁正里中山二路109巷X號","category":"修漏","prevCase":"1R11501125","prevResult":"因漏水點不明須檢測後施工。 ","appealResult":"2/7 已修復。\n前案未改善，無法申覆。","station":"新山廠","deducted":true},{"type":"duplicate","seq":9,"caseId":"20260104374","reportTime":"2026/03/07 10:07","month":"3月","description":"續20260080723，民眾再次進線，表示本公司人員已前往處理並鋪柏油，且另註記會再進行第二次鋪柏油，但民眾發現此址路中仍會漏水，漏水量小，不影響交通，煩請協助","address":"新北市淡水區油車里淡海路X號","category":"修漏","prevCase":"1B11500274","prevResult":"排修","appealResult":"複查無漏水，但總處發現前案提早結案，故總處不給過。","station":"淡水所","deducted":true},{"type":"duplicate","seq":13,"caseId":"20260113337","reportTime":"2026/03/12 15:36","month":"3月","description":"續-20260085021 陳小姐反映路邊總表前外管線漏水量由小變大多日，暫不影響交通，線上已婉釋前案處理結果，請能盡快處理。","address":"新北市三芝區埔頭里中興街１段X號","category":"修漏","prevCase":"1B11500290","prevResult":"排修","appealResult":"已於3/14修復。\n前案未改善，無法申覆。","station":"淡水所","deducted":true},{"type":"duplicate","seq":15,"caseId":"20260140797","reportTime":"2026/03/30 09:58","month":"3月","description":"續:20260131261，民眾反映已有人員前往，但尚未修繕，且目前還在漏水，線上已婉釋修繕結果，另告知因要協調公車路線後才可協助開挖，民眾不接受，要求速處，並須先去電說明，另提及要訴諸媒體，煩請協助並回復。","address":"新北市貢寮區和美里龍洞街X號前方路中間","category":"修漏","prevCase":"1G11500063","prevResult":"因消防栓位於狹窄道路中央，開挖後公車無法通過，需先協調公車路線更換再行開挖。","appealResult":"3/31已修復。\n前案未改善，無法申覆。","station":"貢雙所","deducted":true},{"type":"duplicate","seq":17,"caseId":"20260152999","reportTime":"2026/04/07 19:28","month":"4月","description":"續20260145810，用戶再次進線表示水壓仍低，提及人員告知前段供壓不足\n，但無後續實際改善，煩請協助與回復。","address":"基隆市暖暖區八西里八堵路１巷X號","category":"供水量","prevCase":"1R11502106","prevResult":"拆表試壓約0.5公斤，電洽用戶無人接聽。","appealResult":"4/12 改善完成，拆表示壓1.8kg，供水正常。\n總處認定前案未改善完成，故申覆失敗。","station":"新山廠","deducted":true},{"type":"duplicate","seq":18,"caseId":"20260160461","reportTime":"2026/04/11 15:28","month":"4月","description":"前案20260157494、20260158463，線上已婉釋處理結果，但新北市政府道路管理中心說明已致電民眾，民眾表示現場地下型消防栓孔蓋不平整(無漏水)，且車輛路經仍會有聲響，煩請再次協助改善並回復，謝謝。","address":"新北市汐止區拱北里汐萬路２段X號","category":"修漏","prevCase":"1D11500272","prevResult":"本案已改善完成。","appealResult":"4/13 提升改善完成。\n前案改善後又再次發生，申覆失敗。","station":"汐止所","deducted":true},{"type":"duplicate","seq":21,"caseId":"20260247267、\n20260251601","reportTime":"2026/06/04 10:06","month":"6月","description":"續20260227612，里長再次進線，反映人員隔日已前往檢測確認到漏水點，但至今仍未前往修繕，漏水量變大，會影響住戶通行且導致住家地基流失，煩請協助","address":"基隆市中山區太白里光華路37巷X號","category":"修漏","prevCase":"1R11502779","prevResult":"須檢測後施工。","appealResult":"6/10 修復。","station":"新山廠","deducted":true},{"type":"duplicate","seq":24,"caseId":"20260261499","reportTime":"2026/06/13 13:20","month":"6月","description":"續20260253128，小姐表示先前有反映該址路邊漏水，沒有修繕確實，目前一樣漏水中，漏水時間已經好幾天，漏水量大，暫時不影響交通，但漏水有流到其他店家門口，煩請協助處理。","address":"基隆市中正區建國里祥豐街449巷X號前","category":"修漏","prevCase":"1R11503111","prevResult":"已修復。","appealResult":"6/17下午已修復。\n前案未改善，無法申覆。","station":"新山廠","deducted":true}],"overdueCases":[{"type":"overdue","caseId":"20260022124","reportTime":"2026/01/13 15:50","month":"1月","serviceCategory":"供水量","station":"新山廠","address":"基隆市中山區新建里成功二路１６１號X樓","description":"經勘查已有水。","processHours":35.9,"repairCaseId":"1R11500227","completionOverdue":"","appealResult":"疏漏"},{"type":"overdue","caseId":"20260022338","reportTime":"2026/01/13 17:05","month":"1月","serviceCategory":"供水量","station":"新山廠","address":"基隆市中山區德和里復興路２１２巷X弄X號","description":"經調節水壓正常。 ","processHours":34.7,"repairCaseId":"1R11500237","completionOverdue":"","appealResult":"疏漏"},{"type":"overdue","caseId":"20260025038","reportTime":"2026/01/15 08:02","month":"1月","serviceCategory":"供水量","station":"新山廠","address":"基隆市中山區西定路２９６巷X號５樓","description":"經勘查已有水。 ","processHours":27.1,"repairCaseId":"1R11500262","completionOverdue":"","appealResult":"疏漏"},{"type":"overdue","caseId":"20260026108","reportTime":"2026/01/15 15:22","month":"1月","serviceCategory":"修漏","station":"新山廠","address":"基隆市安樂區長樂里樂利三街X之6號","description":"備料後施工。","processHours":38.5,"repairCaseId":"1R11500273","completionOverdue":"","appealResult":"疏漏"},{"type":"overdue","caseId":"20260048967","reportTime":"2026/01/29 11:05","month":"1月","serviceCategory":"修漏","station":"新山廠","address":"基隆市中山區仁正里中山二路109巷X號","description":"備料後施工。","processHours":29.8,"repairCaseId":"1R11501143","completionOverdue":"","appealResult":"疏漏"},{"type":"overdue","caseId":"20260056303","reportTime":"2026/02/03 15:13","month":"2月","serviceCategory":"供水量","station":"瑞芳所","address":"新北市瑞芳區爪峯里三爪子坑路１１１巷X號１樓","description":"已正常供水。","processHours":24.4,"repairCaseId":"1C11500042","completionOverdue":"","appealResult":"疏漏"},{"type":"overdue","caseId":"20260057332","reportTime":"2026/02/04 10:29","month":"2月","serviceCategory":"修漏","station":"新山廠","address":"基隆市安樂區永康里崇德路10巷X號旁","description":"需配料後進場。","processHours":28,"repairCaseId":"1R11501225","completionOverdue":"","appealResult":"疏漏"},{"type":"overdue","caseId":"20260093668","reportTime":"2026/03/01 18:35","month":"3月","serviceCategory":"修漏","station":"新山廠","address":"基隆市信義區仁壽里義五路13巷X號跟7號之間","description":"檢測後施工。","processHours":26,"repairCaseId":"1R11501526","completionOverdue":"","appealResult":"疏漏"},{"type":"overdue","caseId":"20260177884","reportTime":"2026/04/22 09:37","month":"4月","serviceCategory":"帳單","station":"瑞芳所","address":"新北市瑞芳區銅山里祈堂路X號","description":"115/04/27複查指針406，115/01/12抄表指針387經查圖檔確認無誤，現場觀察水表正常且無漏水情形。向用戶說明後，用戶對水表準確度仍有疑慮，決定申請水表檢驗，後續協助用戶完成申請。","processHours":29.5,"repairCaseId":"","completionOverdue":"","appealResult":"未於期限內展延。"},{"type":"overdue","caseId":"20260379922","reportTime":"2026/08/20 11:28","month":"8月","serviceCategory":"修漏","station":"新山廠","address":"基隆市安樂區嘉仁里安樂路１段X號","description":"已於8/23日修復完畢。","processHours":26.9,"repairCaseId":"1R11504526","completionOverdue":"","appealResult":"疏漏(演習影響)"},{"type":"overdue","caseId":"20260380257","reportTime":"2026/08/20 14:12","month":"8月","serviceCategory":"修漏","station":"新山廠","address":"基隆市安樂區嘉仁里安樂路１段X號","description":"已於8/23日修復完畢。","processHours":25.2,"repairCaseId":"1R11504530","completionOverdue":"","appealResult":"疏漏(演習影響)"},{"type":"overdue","caseId":"20260381319","reportTime":"2026/08/21 08:54","month":"8月","serviceCategory":"修漏","station":"新山廠","address":"基隆市中山區太白里光華路１５巷X號","description":"已轉相關單位處理。 ","processHours":24.5,"repairCaseId":"1R11504541","completionOverdue":"","appealResult":"疏漏(演習影響)"}],"dissatisfied":{"hasCases":false,"note":"115年目前累計暫無『不滿意案件』","rows":[]}},"rank":{"satisfaction":[{"regionIdx":1,"region":"1區","satisfactionScore":null,"phoneScore":null,"csScore":722.8968,"csRank":9,"totalScore":289.15872,"totalRank":9},{"regionIdx":2,"region":"2區","satisfactionScore":null,"phoneScore":null,"csScore":723.4528,"csRank":8,"totalScore":289.38112,"totalRank":8},{"regionIdx":3,"region":"3區","satisfactionScore":null,"phoneScore":null,"csScore":721.2216000000001,"csRank":11,"totalScore":288.48864000000003,"totalRank":11},{"regionIdx":4,"region":"4區","satisfactionScore":null,"phoneScore":null,"csScore":722.1927999999999,"csRank":10,"totalScore":288.87712,"totalRank":10},{"regionIdx":5,"region":"5區","satisfactionScore":null,"phoneScore":null,"csScore":727.4224,"csRank":4,"totalScore":290.96896000000004,"totalRank":4},{"regionIdx":6,"region":"6區","satisfactionScore":null,"phoneScore":null,"csScore":724.7826,"csRank":6,"totalScore":289.91304,"totalRank":6},{"regionIdx":7,"region":"7區","satisfactionScore":null,"phoneScore":null,"csScore":718.1211999999999,"csRank":12,"totalScore":287.24848,"totalRank":12},{"regionIdx":8,"region":"8區","satisfactionScore":null,"phoneScore":null,"csScore":728.6976,"csRank":1,"totalScore":291.47904,"totalRank":1},{"regionIdx":9,"region":"9區","satisfactionScore":null,"phoneScore":null,"csScore":727.6128,"csRank":3,"totalScore":291.04512,"totalRank":3},{"regionIdx":10,"region":"10區","satisfactionScore":null,"phoneScore":null,"csScore":728.0767999999999,"csRank":2,"totalScore":291.23071999999996,"totalRank":2},{"regionIdx":11,"region":"11區","satisfactionScore":null,"phoneScore":null,"csScore":725.1216000000001,"csRank":5,"totalScore":290.04864000000003,"totalRank":5},{"regionIdx":12,"region":"12區","satisfactionScore":null,"phoneScore":null,"csScore":723.8596,"csRank":7,"totalScore":289.54384,"totalRank":7},{"regionIdx":13,"region":"屏東區","satisfactionScore":null,"phoneScore":null,"csScore":698.6560000000001,"csRank":13,"totalScore":279.46240000000006,"totalRank":13}],"trial":{"months":["1月","2月","3月","4月","5月","6月","7月","8月"],"byRegion":{"1":{"region":"1區","scores":[89.8202,90.2892,89.9478,90.2972,90.73140000000001,89.97500000000001,91.10999999999999,90.726],"total":722.8968,"rank":9},"2":{"region":"2區","scores":[90.4272,90.71,90.9156,90.419,89.9224,90.084,90.37199999999999,90.6026],"total":723.4528,"rank":8},"3":{"region":"3區","scores":[90.27000000000001,90.7032,90.41399999999999,90.174,90.35999999999999,89.97,89.63040000000001,89.69999999999999],"total":721.2216000000001,"rank":11},"4":{"region":"4區","scores":[89.65039999999999,91.332,90.7704,89.7952,89.7096,90.588,90.1424,90.2048],"total":722.1927999999999,"rank":10},"5":{"region":"5區","scores":[90.4126,91.2912,91.08539999999999,90.79140000000001,90.99719999999999,90.99719999999999,90.9678,90.8796],"total":727.4224,"rank":4},"6":{"region":"6區","scores":[90.4308,90.84,90.8238,90.44999999999999,90.53999999999999,90.78,90.696,90.22200000000001],"total":724.7826,"rank":6},"7":{"region":"7區","scores":[88.6712,89.8416,89.928,89.91,90.0384,90.792,89.2968,89.64320000000001],"total":718.1211999999999,"rank":12},"8":{"region":"8區","scores":[90.05440000000002,91.6896,91.5456,91.2864,91.0304,90.6592,91.5744,90.8576],"total":728.6976,"rank":1},"9":{"region":"9區","scores":[91.3152,90.4224,91.1424,91.45920000000001,91.0272,90.88319999999999,91.05600000000001,90.3072],"total":727.6128,"rank":3},"10":{"region":"10區","scores":[91.05600000000001,91.632,91.0848,90.71039999999999,90.8576,90.3648,90.8544,91.51679999999999],"total":728.0767999999999,"rank":2},"11":{"region":"11區","scores":[90.61500000000001,91.45920000000001,90.336,90.7392,90.47999999999999,90.4974,90.35040000000001,90.64439999999999],"total":725.1216000000001,"rank":5},"12":{"region":"12區","scores":[90.722,90.8796,90.87,90.66,90.57,90.34200000000001,89.55199999999999,90.264],"total":723.8596,"rank":7},"13":{"region":"屏東區","scores":[88.0008,87.2424,86.96880000000002,87.28880000000001,86.43520000000001,87.4504,88.62960000000001,86.63999999999999],"total":698.6560000000001,"rank":13}}},"compare":{"months":["1月","2月","3月","4月","5月","6月","7月","8月"],"byRegion":{"1":{"region":"1區","ranks":[10,11,11,9,5,11,2,4]},"2":{"region":"2區","ranks":[6,8,5,8,11,10,7,6]},"3":{"region":"3區","ranks":[8,9,9,10,9,12,10,11]},"4":{"region":"4區","ranks":[11,4,8,12,12,6,9,10]},"5":{"region":"5區","ranks":[7,5,3,3,3,1,4,2]},"6":{"region":"6區","ranks":[5,7,7,7,7,4,6,9]},"7":{"region":"7區","ranks":[12,12,12,11,10,3,12,12]},"8":{"region":"8區","ranks":[9,1,1,2,1,5,1,3]},"9":{"region":"9區","ranks":[1,10,2,1,2,2,3,7]},"10":{"region":"10區","ranks":[2,2,4,5,4,8,5,1]},"11":{"region":"11區","ranks":[4,3,10,4,8,7,8,5]},"12":{"region":"12區","ranks":[3,6,6,6,6,9,11,8]},"13":{"region":"屏東區","ranks":[13,13,13,13,13,13,13,13]}}},"deficiency":{"overdue":{"months":["1月","2月","3月","4月","5月","6月","7月","8月"],"byRegion":{"1":{"region":"1區","monthly":[5,2,1,1,0,0,0,3],"total":12},"2":{"region":"2區","monthly":[0,0,0,0,0,0,1,0],"total":1},"3":{"region":"3區","monthly":[0,0,2,0,0,0,0,0],"total":2},"4":{"region":"4區","monthly":[1,0,0,0,0,5,0,0],"total":6},"5":{"region":"5區","monthly":[0,0,0,0,0,0,0,0],"total":0},"6":{"region":"6區","monthly":[0,0,0,0,0,0,1,1],"total":2},"7":{"region":"7區","monthly":[7,8,6,1,4,3,5,13],"total":47},"8":{"region":"8區","monthly":[0,0,0,0,0,0,0,0],"total":0},"9":{"region":"9區","monthly":[0,0,0,0,0,0,0,0],"total":0},"10":{"region":"10區","monthly":[0,0,0,0,0,0,0,0],"total":0},"11":{"region":"11區","monthly":[0,0,0,0,0,0,0,0],"total":0},"12":{"region":"12區","monthly":[1,0,0,0,0,1,4,2],"total":8},"13":{"region":"屏東區","monthly":[13,9,3,3,8,5,3,4],"total":48}}},"duplicate":{"months":["1月","2月","3月","4月","5月","6月","7月","8月"],"byRegion":{"1":{"region":"1區","monthly":[2,0,3,2,0,2,0,0],"total":9},"2":{"region":"2區","monthly":[0,1,0,1,2,0,0,1],"total":5},"3":{"region":"3區","monthly":[1,0,0,0,0,0,0,0],"total":1},"4":{"region":"4區","monthly":[1,0,0,2,0,0,1,1],"total":5},"5":{"region":"5區","monthly":[1,0,0,0,0,0,0,0],"total":1},"6":{"region":"6區","monthly":[1,0,0,0,1,0,0,2],"total":4},"7":{"region":"7區","monthly":[7,3,3,3,3,0,3,1],"total":23},"8":{"region":"8區","monthly":[2,0,0,0,1,2,0,1],"total":6},"9":{"region":"9區","monthly":[0,0,0,0,0,0,0,0],"total":0},"10":{"region":"10區","monthly":[0,0,0,0,1,0,0,0],"total":1},"11":{"region":"11區","monthly":[0,0,0,0,0,0,0,0],"total":0},"12":{"region":"12區","monthly":[1,0,0,0,0,0,1,0],"total":2},"13":{"region":"屏東區","monthly":[0,3,3,4,2,2,0,0],"total":14}}},"dissatisfied":{"months":["1月","2月","3月","4月","5月","6月","7月","8月"],"byRegion":{"1":{"region":"1區","monthly":[0,0,0,0,0,0,0,0],"total":0},"2":{"region":"2區","monthly":[0,0,0,0,0,0,0,0],"total":0},"3":{"region":"3區","monthly":[0,0,0,0,0,0,0,0],"total":0},"4":{"region":"4區","monthly":[0,0,0,0,0,0,0,0],"total":0},"5":{"region":"5區","monthly":[0,0,0,0,0,0,0,0],"total":0},"6":{"region":"6區","monthly":[0,0,0,0,0,0,0,0],"total":0},"7":{"region":"7區","monthly":[0,0,0,0,0,0,0,0],"total":0},"8":{"region":"8區","monthly":[0,0,0,0,0,0,0,0],"total":0},"9":{"region":"9區","monthly":[0,0,0,0,0,0,0,0],"total":0},"10":{"region":"10區","monthly":[0,0,0,0,0,0,0,0],"total":0},"11":{"region":"11區","monthly":[0,0,0,0,0,0,0,0],"total":0},"12":{"region":"12區","monthly":[0,0,0,0,0,0,0,0],"total":0},"13":{"region":"屏東區","monthly":[0,0,0,0,0,0,0,0],"total":0}}}}},"generatedAt":"2026-09-15T09:41:05.389Z"}</script>
+<script>
+(function(){
+"use strict";
+
+/* =========================================================================
+   0. CONSTANTS & UTILITIES
+   ========================================================================= */
+var CN_NUM = {'一':1,'二':2,'三':3,'四':4,'五':5,'六':6,'七':7,'八':8,'九':9,'十':10,'十一':11,'十二':12};
+var CANONICAL_LABELS = ['1區','2區','3區','4區','5區','6區','7區','8區','9區','10區','11區','12區','屏東區'];
+var OUR_REGION_IDX = 1;
+var MONTH_COLS = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+
+function normalizeRegion(label){
+  if (label === undefined || label === null) return null;
+  var s = String(label).trim();
+  if (!s) return null;
+  if (s.indexOf('屏東') !== -1) return 13;
+  var m = s.match(/^(\d+)\s*區/);
+  if (m) return parseInt(m[1], 10);
+  m = s.match(/^([一二三四五六七八九十]+)區$/);
+  if (m && CN_NUM[m[1]] != null) return CN_NUM[m[1]];
+  return null;
+}
+
+function num(v){ var n = (v===null||v===undefined||v==='') ? 0 : Number(v); return isNaN(n) ? 0 : n; }
+function fmtInt(v){ return num(v).toLocaleString('zh-Hant-TW'); }
+function fmtPct(v){
+  if (v===null||v===undefined||v==='') return '0.00%';
+  var n = Number(v);
+  if (isNaN(n)) return String(v);
+  return (n*100).toFixed(2) + '%';
+}
+function esc(s){
+  return String(s===undefined||s===null?'':s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+function pad2(n){ return String(n).padStart(2,'0'); }
+
+function excelSerialToDate(serial){
+  var utcDays = Math.floor(serial - 25569);
+  var utcValue = utcDays * 86400;
+  var dateInfo = new Date(utcValue * 1000);
+  var fractionalDay = serial - Math.floor(serial) + 0.0000001;
+  var totalSeconds = Math.floor(86400 * fractionalDay);
+  var seconds = totalSeconds % 60;
+  totalSeconds -= seconds;
+  var hours = Math.floor(totalSeconds / 3600);
+  var minutes = Math.floor(totalSeconds / 60) % 60;
+  return new Date(Date.UTC(dateInfo.getUTCFullYear(), dateInfo.getUTCMonth(), dateInfo.getUTCDate(), hours, minutes, seconds));
+}
+function formatDateTime(v){
+  if (v === null || v === undefined || v === '') return '';
+  var d = null;
+  if (typeof v === 'number') {
+    d = excelSerialToDate(v);
+  } else if (v instanceof Date) {
+    d = v;
+  } else {
+    var s = String(v).trim().replace(/\./g, '/').replace(/-/g, '/');
+    var m = s.match(/(\d{4})\/(\d{1,2})\/(\d{1,2})(?:[ T](\d{1,2}):(\d{2}))?/);
+    if (m) {
+      d = new Date(Date.UTC(+m[1], +m[2]-1, +m[3], m[4]?+m[4]:0, m[5]?+m[5]:0));
+    } else {
+      return s;
+    }
+  }
+  if (!d || isNaN(d.getTime())) return String(v).trim();
+  return d.getUTCFullYear() + '/' + pad2(d.getUTCMonth()+1) + '/' + pad2(d.getUTCDate()) + ' ' + pad2(d.getUTCHours()) + ':' + pad2(d.getUTCMinutes());
+}
+function monthFromFormatted(fmt){
+  var m = fmt && fmt.match(/^\d{4}\/(\d{2})\//);
+  return m ? (parseInt(m[1],10) + '月') : '';
+}
+function aoa(ws){
+  return XLSX.utils.sheet_to_json(ws, {header:1, raw:true, defval:null});
+}
+
+/* =========================================================================
+   1. PARSERS
+   ========================================================================= */
+function parsePerfWorkbook(wb){
+  var result = { monthLabel:null, sourceSheet:null, stations:[], totals:null, division:null,
+    duplicateCases:[], overdueCases:[], dissatisfied:{hasCases:false, note:'', rows:[]} };
+
+  var monthlySheetName = wb.SheetNames.find(function(n){ return /^\d{4,6}$/.test(n.trim()); });
+  result.sourceSheet = monthlySheetName || null;
+
+  var cols = ['name','backTotal','attitudeCum','attitudeMonth','overdueCum','overdueMonth','dupCum','dupMonth','phoneCum','phoneMonth','deductCum','deductMonth','deductRatio','note'];
+  function rowToObj(r){
+    var o = {};
+    cols.forEach(function(c,i){ o[c] = (r && r[i] !== undefined) ? r[i] : null; });
+    o.computedDeduct = num(o.overdueCum)+num(o.dupCum)+num(o.phoneCum)+num(o.attitudeCum);
+    o.computedDeductMonth = num(o.overdueMonth)+num(o.dupMonth)+num(o.phoneMonth)+num(o.attitudeMonth);
+    // 原始表格「扣分件數佔全部案件之比例」欄位在來源檔案中通常是空白，改為自行計算：扣分推算(累計) / 後送總案件數(累計)
+    o.deductRatio = num(o.backTotal) > 0 ? (o.computedDeduct / num(o.backTotal)) : 0;
+    return o;
+  }
+
+  if (monthlySheetName) {
+    var rows = aoa(wb.Sheets[monthlySheetName]);
+    var title = (rows[0] && rows[0][0]) ? String(rows[0][0]) : '';
+    var m = title.match(/(\d+)年(\d+)月/);
+    if (m) result.monthLabel = m[1] + '年' + m[2] + '月';
+    else {
+      var mm = monthlySheetName.match(/^(\d{3})(\d{2})$/);
+      if (mm) result.monthLabel = mm[1] + '年' + mm[2] + '月';
+    }
+    var startIdx = -1;
+    for (var i=0;i<rows.length;i++){ if (rows[i] && String(rows[i][0]||'').trim() === '總計'){ startIdx = i; break; } }
+    if (startIdx >= 0) {
+      result.totals = rowToObj(rows[startIdx]);
+      for (var k = startIdx+1; k < rows.length; k++){
+        var r = rows[k];
+        var c0 = (r && r[0] != null) ? String(r[0]).trim() : '';
+        if (!c0 || c0.charAt(0) === '※' || c0.indexOf('請核章') !== -1) break;
+        var obj = rowToObj(r);
+        if (c0 === '區處') result.division = obj;
+        else result.stations.push(obj);
+      }
+    }
+  }
+
+  var dupSheetName = wb.SheetNames.find(function(n){ return n.indexOf('重複案件') !== -1; });
+  if (dupSheetName) {
+    var drows = aoa(wb.Sheets[dupSheetName]);
+    var hIdx = -1;
+    for (var di=0; di<drows.length; di++){ if (drows[di] && drows[di][0] === '序號'){ hIdx = di; break; } }
+    if (hIdx >= 0) {
+      for (var dj = hIdx+1; dj < drows.length; dj++){
+        var dr = drows[dj];
+        if (!dr || dr[1] === null || dr[1] === undefined) continue;
+        var rt = formatDateTime(dr[2]);
+        result.duplicateCases.push({
+          type:'duplicate', seq: dr[0], caseId: dr[1] != null ? String(dr[1]) : '',
+          reportTime: rt, month: monthFromFormatted(rt),
+          description: dr[3] || '', address: dr[4] || '', category: dr[5] || '',
+          prevCase: dr[6] || '', prevResult: dr[7] || '', appealResult: dr[8] || '',
+          station: dr[9] || '', deducted: (String(dr[10]||'').trim().toLowerCase() === 'v')
+        });
+      }
+    }
+  }
+
+  var odSheetName = wb.SheetNames.find(function(n){ return n.indexOf('逾期案件') !== -1; });
+  if (odSheetName) {
+    var orows = aoa(wb.Sheets[odSheetName]);
+    var ohIdx = -1;
+    for (var oi=0; oi<orows.length; oi++){ if (orows[oi] && orows[oi][0] === '受理編號'){ ohIdx = oi; break; } }
+    if (ohIdx >= 0) {
+      var lastMonth = '';
+      for (var oj = ohIdx+1; oj < orows.length; oj++){
+        var or_ = orows[oj];
+        if (!or_ || or_[0] === null || or_[0] === undefined) continue;
+        var monthCell = (or_[10] != null && String(or_[10]).trim() !== '') ? String(or_[10]).trim() : lastMonth;
+        lastMonth = monthCell;
+        var ort = formatDateTime(or_[1]);
+        result.overdueCases.push({
+          type:'overdue', caseId:String(or_[0]), reportTime: ort, month: monthCell || monthFromFormatted(ort),
+          serviceCategory: or_[2] || '', station: or_[3] || '', address: or_[4] || '',
+          description: or_[5] || '', processHours: or_[6], repairCaseId: or_[7] || '',
+          completionOverdue: or_[8] || '', appealResult: or_[9] || ''
+        });
+      }
+    }
+  }
+
+  var dsName = wb.SheetNames.find(function(n){ return n.indexOf('不滿意案件') !== -1; });
+  if (dsName) {
+    var srows = aoa(wb.Sheets[dsName]);
+    if (srows.length <= 1) {
+      result.dissatisfied.hasCases = false;
+      result.dissatisfied.note = (srows[0] && srows[0][0]) ? String(srows[0][0]) : '無資料';
+    } else {
+      var headers = srows[0].map(function(h){ return h==null?'':String(h); });
+      var any = false;
+      for (var si=1; si<srows.length; si++){
+        var sr = srows[si];
+        if (!sr || sr.every(function(v){ return v===null||v===''; })) continue;
+        any = true;
+        var sObj = {}; headers.forEach(function(h,idx){ sObj[h||('col'+idx)] = sr[idx]; });
+        result.dissatisfied.rows.push({
+          type:'dissatisfied', caseId: sObj['受理編號']||sObj['案件編號']||('D'+si),
+          reportTime: formatDateTime(sObj['申報時間']||sObj['通報時間']), month:'',
+          station: sObj['廠所']||'', description: sObj['處理情形']||sObj['問題描述(訴求)-參考']||JSON.stringify(sObj),
+          serviceCategory: sObj['服務類別']||sObj['案別']||'', address: sObj['地址']||'', appealResult:''
+        });
+      }
+      result.dissatisfied.hasCases = any;
+      if (!any) result.dissatisfied.note = '115年目前累計暫無『不滿意案件』';
+    }
+  }
+  return result;
+}
+
+function monthColsWithData(dataRows, headerRow){
+  var idxs = [];
+  headerRow.forEach(function(h,i){ if (MONTH_COLS.indexOf(h) !== -1) idxs.push(i); });
+  var active = [];
+  idxs.forEach(function(ci){
+    var hasData = dataRows.some(function(r){ return r && r[ci] !== null && r[ci] !== undefined && r[ci] !== ''; });
+    if (hasData) active.push(ci);
+  });
+  return active;
+}
+
+function parseRankWorkbook(wb){
+  var result = { satisfaction:[], trial:{months:[],byRegion:{}}, compare:{months:[],byRegion:{}},
+    deficiency:{overdue:{months:[],byRegion:{}}, duplicate:{months:[],byRegion:{}}, dissatisfied:{months:[],byRegion:{}}} };
+
+  var satName = wb.SheetNames.find(function(n){ return n.indexOf('顧客滿意度') !== -1; });
+  if (satName) {
+    var srows = aoa(wb.Sheets[satName]);
+    var hIdx = -1;
+    for (var i=0;i<srows.length;i++){ if (srows[i] && srows[i].indexOf('一、顧客滿意度調查') !== -1){ hIdx = i; break; } }
+    if (hIdx >= 0) {
+      for (var j=hIdx+1;j<srows.length;j++){
+        var r = srows[j]; var idx = normalizeRegion(r && r[0]);
+        if (!idx) continue;
+        result.satisfaction.push({ regionIdx:idx, region:CANONICAL_LABELS[idx-1], satisfactionScore:r[1], phoneScore:r[2], csScore:r[3], csRank:r[4], totalScore:r[5], totalRank:r[6] });
+      }
+    }
+  }
+
+  var trialName = wb.SheetNames.find(function(n){ return n.indexOf('排名試算') !== -1; });
+  if (trialName) {
+    var trows = aoa(wb.Sheets[trialName]);
+    var thIdx = -1;
+    for (var ti=0; ti<trows.length; ti++){ if (trows[ti] && trows[ti][0]==='區處' && trows[ti].indexOf('1月')!==-1){ thIdx = ti; break; } }
+    if (thIdx >= 0) {
+      var theader = trows[thIdx];
+      var totalCol = theader.indexOf('加總'); var rankCol = theader.indexOf('排名');
+      var tdata = [];
+      for (var tj=thIdx+1; tj<trows.length; tj++){
+        var tr = trows[tj]; var tidx = normalizeRegion(tr && tr[0]);
+        if (!tidx) { if (tr && tr[0]) break; else continue; }
+        tdata.push(tr);
+      }
+      var tActive = monthColsWithData(tdata, theader);
+      result.trial.months = tActive.map(function(ci){ return theader[ci]; });
+      tdata.forEach(function(tr){
+        var tidx = normalizeRegion(tr[0]);
+        result.trial.byRegion[tidx] = {
+          region: CANONICAL_LABELS[tidx-1],
+          scores: tActive.map(function(ci){ return tr[ci]; }),
+          total: totalCol>=0 ? tr[totalCol] : null,
+          rank: rankCol>=0 ? tr[rankCol] : null
+        };
+      });
+    }
+  }
+
+  var cmpName = wb.SheetNames.find(function(n){ return n.indexOf('排名對比') !== -1; });
+  if (cmpName) {
+    var crows = aoa(wb.Sheets[cmpName]);
+    var chIdx = -1;
+    for (var ci2=0; ci2<crows.length; ci2++){ if (crows[ci2] && crows[ci2][0]==='區處' && crows[ci2].indexOf('1月')!==-1){ chIdx = ci2; break; } }
+    if (chIdx >= 0) {
+      var cheader = crows[chIdx];
+      var cdata = [];
+      for (var cj=chIdx+1; cj<crows.length; cj++){
+        var cr = crows[cj]; var cidx = normalizeRegion(cr && cr[0]);
+        if (!cidx) { if (cr && cr[0]) break; else continue; }
+        cdata.push(cr);
+      }
+      var cActive = monthColsWithData(cdata, cheader);
+      result.compare.months = cActive.map(function(ci){ return cheader[ci]; });
+      cdata.forEach(function(cr){
+        var cidx = normalizeRegion(cr[0]);
+        result.compare.byRegion[cidx] = { region:CANONICAL_LABELS[cidx-1], ranks: cActive.map(function(ci){ return cr[ci]; }) };
+      });
+    }
+  }
+
+  var defName = wb.SheetNames.find(function(n){ return n.indexOf('各月份缺失表') !== -1; });
+  if (defName) {
+    var frows = aoa(wb.Sheets[defName]);
+    var sectionMap = { '逾期':'overdue', '重複案件':'duplicate', '不滿意案件':'dissatisfied' };
+    var fi = 0;
+    while (fi < frows.length) {
+      var fc0 = (frows[fi] && frows[fi][0]) ? String(frows[fi][0]).trim() : '';
+      if (sectionMap[fc0]) {
+        var key = sectionMap[fc0];
+        var fheader = frows[fi+1] || [];
+        var fdata = []; var fj = fi+2;
+        for (; fj<frows.length; fj++){
+          var fr = frows[fj]; var fidx = normalizeRegion(fr && fr[0]);
+          if (!fidx) break;
+          fdata.push(fr);
+        }
+        var fActive = monthColsWithData(fdata, fheader);
+        result.deficiency[key].months = fActive.map(function(ci){ return fheader[ci]; });
+        var totalColIdx = fheader.indexOf('總計');
+        fdata.forEach(function(fr){
+          var fidx = normalizeRegion(fr[0]);
+          result.deficiency[key].byRegion[fidx] = {
+            region: CANONICAL_LABELS[fidx-1],
+            monthly: fActive.map(function(ci){ return num(fr[ci]); }),
+            total: totalColIdx>=0 ? num(fr[totalColIdx]) : null
+          };
+        });
+        fi = fj;
+      } else { fi++; }
+    }
+  }
+  return result;
+}
+
+/* =========================================================================
+   2. APP STATE
+   ========================================================================= */
+var appState = null;
+var charts = {};
+var UI = { activeTab:'overview', presenting:false, caseFilters:{ type:'all', station:'all', month:'all', q:'' } };
+
+function destroyChart(key){ if (charts[key]) { charts[key].destroy(); delete charts[key]; } }
+function mkChart(key, ctx, cfg){ destroyChart(key); charts[key] = new Chart(ctx, cfg); return charts[key]; }
+
+/* ---- 鑽取輔助：依月份/依廠所統計出「來源」明細，供圖表 tooltip 與點擊使用 ---- */
+function breakdownByStation(cases){
+  var map = {};
+  cases.forEach(function(c){
+    var st = c.station || '未標示廠所';
+    map[st] = (map[st]||0) + 1;
+  });
+  return map;
+}
+function breakdownByMonthAndStation(cases){
+  var map = {}; // { '3月': { '新山廠':2, '瑞芳所':1 } }
+  cases.forEach(function(c){
+    var mo = c.month || '未標示月份';
+    var st = c.station || '未標示廠所';
+    if (!map[mo]) map[mo] = {};
+    map[mo][st] = (map[mo][st]||0) + 1;
+  });
+  return map;
+}
+function sortedBreakdownLines(map, prefix){
+  if (!map) return [];
+  var keys = Object.keys(map).sort(function(a,b){ return map[b]-map[a]; });
+  return keys.map(function(k){ return (prefix||'　└ ') + k + '　' + map[k] + ' 件'; });
+}
+/* 跳轉到「缺失案件明細」頁籤，並套用篩選條件 */
+function goToCaseExplorer(filters){
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+  var btn = document.querySelector('.tab-btn[data-tab="cases"]');
+  if (btn) btn.classList.add('active');
+  var panel = document.getElementById('panel-cases');
+  if (panel) panel.classList.add('active');
+  UI.activeTab = 'cases';
+  UI.caseFilters = Object.assign({ type:'all', station:'all', month:'all', q:'' }, filters||{});
+  renderCases();
+  var fType = document.getElementById('fType'), fStation = document.getElementById('fStation'), fMonth = document.getElementById('fMonth');
+  if (fType) fType.value = UI.caseFilters.type;
+  if (fStation) fStation.value = UI.caseFilters.station;
+  if (fMonth) fMonth.value = UI.caseFilters.month;
+  drawCaseList();
+  window.scrollTo(0,0);
+}
+
+var PALETTE = {
+  teal:'#0E7C8A', tealDeep:'#0A5F6B', tealTint:'#BFE1E4',
+  amber:'#E8A317', coral:'#BD463C', navy:'#0A2A3A', gray:'#9FB0B3', grayLight:'#D9E2E3'
+};
+
+/* =========================================================================
+   3. FILE HANDLING
+   ========================================================================= */
+var pendingFiles = { perf:null, rank:null };
+
+function readFileAsWorkbook(file){
+  return new Promise(function(resolve, reject){
+    var reader = new FileReader();
+    reader.onload = function(e){
+      try {
+        var data = new Uint8Array(e.target.result);
+        var wb = XLSX.read(data, {type:'array', cellDates:false});
+        resolve(wb);
+      } catch(err){ reject(err); }
+    };
+    reader.onerror = function(){ reject(new Error('檔案讀取失敗')); };
+    reader.readAsArrayBuffer(file);
+  });
+}
+
+function setupDropzone(dzId, inputId, nameId, key){
+  var dz = document.getElementById(dzId);
+  var input = document.getElementById(inputId);
+  var nameEl = document.getElementById(nameId);
+  input.addEventListener('change', function(){
+    if (input.files && input.files[0]) handleFile(input.files[0], key, dz, nameEl);
+  });
+  dz.addEventListener('dragover', function(e){ e.preventDefault(); dz.classList.add('drag'); });
+  dz.addEventListener('dragleave', function(){ dz.classList.remove('drag'); });
+  dz.addEventListener('drop', function(e){
+    e.preventDefault(); dz.classList.remove('drag');
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      input.files = e.dataTransfer.files;
+      handleFile(e.dataTransfer.files[0], key, dz, nameEl);
+    }
+  });
+}
+function handleFile(file, key, dz, nameEl){
+  pendingFiles[key] = file;
+  dz.classList.add('filled');
+  nameEl.textContent = '已選擇：' + file.name;
+  document.getElementById('btnGenerate').disabled = !(pendingFiles.perf && pendingFiles.rank);
+}
+
+function showUploadError(msg){
+  var el = document.getElementById('uploadError');
+  el.style.display = 'block';
+  el.textContent = msg;
+}
+function clearUploadError(){ document.getElementById('uploadError').style.display = 'none'; }
+
+document.getElementById('btnGenerate').addEventListener('click', function(){
+  clearUploadError();
+  var btn = this; btn.disabled = true; btn.textContent = '解析中…';
+  Promise.all([readFileAsWorkbook(pendingFiles.perf), readFileAsWorkbook(pendingFiles.rank)]).then(function(res){
+    var perf = parsePerfWorkbook(res[0]);
+    var rank = parseRankWorkbook(res[1]);
+    if (!perf.sourceSheet && !perf.totals) {
+      throw new Error('無法在「客戶服務業務績效」檔案中找到當月統計頁簽（應為 5 碼數字，如 11507），請確認檔案格式與頁簽名稱是否正確。');
+    }
+    if (!rank.trial.months.length && !rank.satisfaction.length) {
+      throw new Error('無法在「排名試算表」中找到「排名試算」或「顧客滿意度」頁簽，請確認檔案格式是否正確。');
+    }
+    appState = { perf: perf, rank: rank, generatedAt: new Date().toISOString() };
+    btn.textContent = '產生互動報告';
+    btn.disabled = false;
+    launchDashboard();
+  }).catch(function(err){
+    console.error(err);
+    showUploadError('匯入失敗：' + err.message);
+    btn.disabled = false; btn.textContent = '產生互動報告';
+  });
+});
+
+document.getElementById('btnReupload').addEventListener('click', function(){
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('topActions').style.display = 'none';
+  document.getElementById('uploadScreen').style.display = 'block';
+  document.getElementById('monthLabelText').innerHTML = '尚未匯入資料';
+});
+
+setupDropzone('dz1','file1','dz1name','perf');
+setupDropzone('dz2','file2','dz2name','rank');
+
+/* =========================================================================
+   4. LAUNCH / RENDER ROOT
+   ========================================================================= */
+function launchDashboard(){
+  document.getElementById('uploadScreen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  document.getElementById('topActions').style.display = 'flex';
+  var monthLabel = (appState.perf.monthLabel) ? appState.perf.monthLabel : '本期';
+  document.getElementById('monthLabelText').innerHTML = monthLabel + ' 一區客服業務績效稽核簡報';
+  var updated = new Date(appState.generatedAt);
+  document.getElementById('updatedChip').textContent = '報告產出：' + updated.getFullYear()+'/'+pad2(updated.getMonth()+1)+'/'+pad2(updated.getDate())+' '+pad2(updated.getHours())+':'+pad2(updated.getMinutes());
+  renderOverview();
+  renderRanking();
+  renderCases();
+  window.scrollTo(0,0);
+}
+
+document.querySelectorAll('.tab-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+    document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+    btn.classList.add('active');
+    document.getElementById('panel-'+btn.dataset.tab).classList.add('active');
+    UI.activeTab = btn.dataset.tab;
+  });
+});
+
+document.getElementById('btnPresent').addEventListener('click', function(){
+  UI.presenting = !UI.presenting;
+  document.body.classList.toggle('presenting', UI.presenting);
+  this.textContent = UI.presenting ? '結束簡報模式' : '簡報模式';
+});
+
+/* =========================================================================
+   5. TAB 1 — OVERVIEW (一區扣分總覽與分析)
+   ========================================================================= */
+function renderOverview(){
+  var perf = appState.perf;
+  var totals = perf.totals || {};
+  var dsCount = perf.dissatisfied.hasCases ? perf.dissatisfied.rows.length : 0;
+  var deductTotal = num(totals.overdueCum)+num(totals.dupCum)+num(totals.phoneCum)+num(totals.attitudeCum)+dsCount;
+
+  var html = '';
+  html += '<div class="section-head"><h2>一區扣分總覽與分析</h2><span class="section-sub">' + esc(perf.monthLabel||'') + '　累計數據（自年初迄本期）</span></div>';
+
+  html += '<div class="block kpi-grid">';
+  html += kpiCard('後送總案件數', fmtInt(totals.backTotal), '件（累計）', 'navy');
+  html += kpiCard('逾期案件', fmtInt(totals.overdueCum), '件（累計）', 'coral');
+  html += kpiCard('重複案件', fmtInt(totals.dupCum), '件（累計）', 'amber');
+  html += kpiCard('不滿意案件', fmtInt(dsCount), '件（累計）', 'amber');
+  html += kpiCard('扣分總計（推算）', fmtInt(deductTotal), '件', 'coral');
+  html += kpiCard('扣分案件佔比', fmtPct(totals.deductRatio), '佔後送總案件', 'teal');
+  html += '</div>';
+
+  html += '<div class="block grid-2">';
+  html += '<div class="card"><div class="card-title">月份趨勢與扣分成分</div><div class="card-sub">各月「逾期／重複／不滿意」案件件數（依可用月份自動延伸）</div><div class="chart-box tall"><canvas id="chartMonthlyTrend"></canvas></div></div>';
+  html += '<div class="card"><div class="card-title">扣分成分佔比</div><div class="card-sub">本期累計扣分件數組成</div><div class="chart-box tall"><canvas id="chartDeductPie"></canvas></div></div>';
+  html += '</div>';
+
+  html += '<div class="block">';
+  html += '<div class="card"><div class="card-title">轄下廠所／單位扣分排行</div><div class="card-sub">依累計扣分件數（逾期＋重複＋停水公告＋服務態度）排序，找出責任單位</div>';
+  html += '<div class="chart-box tall"><canvas id="chartStationRank"></canvas></div></div>';
+  html += '</div>';
+
+  html += '<div class="block"><div class="section-head"><h2 style="font-size:16.5px;">廠所／單位明細表</h2></div>' + buildStationTable(perf) + '</div>';
+
+  document.getElementById('panel-overview').innerHTML = html;
+
+  renderMonthlyTrendChart();
+  renderDeductPieChart(totals, dsCount);
+  renderStationRankChart(perf);
+}
+
+function kpiCard(label, value, foot, tone){
+  return '<div class="kpi-card tone-'+tone+'"><div class="kpi-bar"></div>' +
+    '<div class="kpi-label">'+esc(label)+'</div>' +
+    '<div class="kpi-value">'+value+'</div>' +
+    '<div class="kpi-foot">'+esc(foot)+'</div></div>';
+}
+
+function buildStationTable(perf){
+  var rows = perf.stations.slice().sort(function(a,b){ return b.computedDeduct - a.computedDeduct; });
+  var out = '<div class="table-wrap"><table><thead><tr>' +
+    '<th>單位／廠所</th><th class="num">後送總案件數</th><th class="num">不滿意/服務態度(累計/當月)</th><th class="num">逾期(累計/當月)</th><th class="num">重複(累計/當月)</th>' +
+    '<th class="num">電話/停水公告(累計/當月)</th><th class="num">扣分推算(累計)</th><th>查覆說明</th></tr></thead><tbody>';
+  if (perf.division) {
+    out += stationRowHtml(perf.division, true);
+  }
+  rows.forEach(function(s){ out += stationRowHtml(s, false); });
+  if (perf.totals) {
+    var t = perf.totals;
+    out += '<tr class="row-total"><td>總計</td><td class="num">'+fmtInt(t.backTotal)+'</td>' +
+      '<td class="num">'+fmtInt(t.attitudeCum)+' / '+monthFigure(t.attitudeMonth)+'</td>' +
+      '<td class="num">'+fmtInt(t.overdueCum)+' / '+monthFigure(t.overdueMonth)+'</td>' +
+      '<td class="num">'+fmtInt(t.dupCum)+' / '+monthFigure(t.dupMonth)+'</td>' +
+      '<td class="num">'+fmtInt(t.phoneCum)+' / '+monthFigure(t.phoneMonth)+'</td>' +
+      '<td class="num">'+fmtInt(t.computedDeduct)+'</td><td>—</td></tr>';
+  }
+  out += '</tbody></table></div>';
+  return out;
+}
+function monthFigure(v){ return '<b class="month-figure">'+fmtInt(v)+'</b>'; }
+function stationRowHtml(s, isHQ){
+  return '<tr'+(isHQ?' class="row-hq"':'')+'>' +
+    '<td>'+esc(s.name)+(isHQ?'　<span class="badge badge-amber">業務課／區處</span>':'')+'</td>' +
+    '<td class="num">'+fmtInt(s.backTotal)+'</td>' +
+    '<td class="num">'+fmtInt(s.attitudeCum)+' / '+monthFigure(s.attitudeMonth)+'</td>' +
+    '<td class="num">'+fmtInt(s.overdueCum)+' / '+monthFigure(s.overdueMonth)+'</td>' +
+    '<td class="num">'+fmtInt(s.dupCum)+' / '+monthFigure(s.dupMonth)+'</td>' +
+    '<td class="num">'+fmtInt(s.phoneCum)+' / '+monthFigure(s.phoneMonth)+'</td>' +
+    '<td class="num">'+fmtInt(s.computedDeduct)+'</td>' +
+    '<td>'+esc(s.note||'—')+'</td></tr>';
+}
+
+function renderMonthlyTrendChart(){
+  var perf = appState.perf;
+  var def = appState.rank.deficiency;
+  var months = def.overdue.months.length ? def.overdue.months : (def.duplicate.months.length ? def.duplicate.months : def.dissatisfied.months);
+  if (!months || !months.length) months = [];
+  var overdue = (def.overdue.byRegion[OUR_REGION_IDX]||{}).monthly || months.map(function(){return 0;});
+  var dup = (def.duplicate.byRegion[OUR_REGION_IDX]||{}).monthly || months.map(function(){return 0;});
+  var dis = (def.dissatisfied.byRegion[OUR_REGION_IDX]||{}).monthly || months.map(function(){return 0;});
+  var ctx = document.getElementById('chartMonthlyTrend');
+  if (!ctx) return;
+
+  // 依「月份＋案件類型」統計出來源廠所，供 tooltip 顯示與點擊鑽取
+  var byMonthStation = {
+    overdue: breakdownByMonthAndStation(perf.overdueCases),
+    duplicate: breakdownByMonthAndStation(perf.duplicateCases),
+    dissatisfied: breakdownByMonthAndStation(perf.dissatisfied.hasCases ? perf.dissatisfied.rows : [])
+  };
+  var typeKeys = ['overdue','duplicate','dissatisfied'];
+
+  mkChart('monthlyTrend', ctx, {
+    type:'bar',
+    data:{ labels: months, datasets:[
+      { label:'逾期案件', data:overdue, backgroundColor: PALETTE.amber, stack:'s' },
+      { label:'重複案件', data:dup, backgroundColor: PALETTE.coral, stack:'s' },
+      { label:'不滿意案件', data:dis, backgroundColor: PALETTE.teal, stack:'s' }
+    ]},
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      onClick: function(evt, elements){
+        if (!elements || !elements.length) return;
+          var el = elements[0];
+          var typeKey = typeKeys[el.datasetIndex];
+          var month = months[el.index];
+          if (!month) return;
+          goToCaseExplorer({ type: typeKey, station:'all', month: month, q:'' });
+      },
+      onHover: function(evt, elements){ evt.native.target.style.cursor = elements.length ? 'pointer' : 'default'; },
+      scales:{ x:{ stacked:true, grid:{display:false} }, y:{ stacked:true, beginAtZero:true, ticks:{precision:0}, grid:{color:'#EAF0F0'} } },
+      plugins:{
+        legend:{ position:'bottom', labels:{ boxWidth:11, boxHeight:11, font:{size:12} } },
+        tooltip:{
+          callbacks:{
+            label: function(ctx2){
+              return ctx2.dataset.label + '：' + ctx2.parsed.y + ' 件';
+            },
+            afterLabel: function(ctx2){
+              var typeKey = typeKeys[ctx2.datasetIndex];
+              var month = months[ctx2.dataIndex];
+              var stMap = byMonthStation[typeKey] && byMonthStation[typeKey][month];
+              if (!stMap) return '';
+              return sortedBreakdownLines(stMap);
+            },
+            footer: function(){ return '點一下可直接跳轉查看案件明細'; }
+          }
+        }
+      }
+    }
+  });
+}
+
+function renderDeductPieChart(totals, dsCount){
+  var perf = appState.perf;
+  var ctx = document.getElementById('chartDeductPie');
+  if (!ctx) return;
+
+  function stationCumMap(field){
+    var map = {};
+    perf.stations.forEach(function(s){ var v = num(s[field]); if (v>0) map[s.name] = v; });
+    return map;
+  }
+
+  var data = [num(totals.overdueCum), num(totals.dupCum), num(totals.phoneCum), num(totals.attitudeCum), dsCount];
+  var labels = ['逾期案件','重複案件','停水公告/1910電話','現場服務態度','不滿意案件'];
+  var typeKeys = ['overdue','duplicate','phone','attitude','dissatisfied'];
+  var colors = [PALETTE.amber, PALETTE.coral, PALETTE.navy, PALETTE.tealDeep, PALETTE.gray];
+  // 每一類扣分「來自哪個廠所」的統計；逾期/重複/不滿意用案件明細，電話/態度用彙總表
+  var breakdownMaps = {
+    overdue: breakdownByStation(perf.overdueCases),
+    duplicate: breakdownByStation(perf.duplicateCases),
+    phone: stationCumMap('phoneCum'),
+    attitude: stationCumMap('attitudeCum'),
+    dissatisfied: breakdownByStation(perf.dissatisfied.hasCases ? perf.dissatisfied.rows : [])
+  };
+  var caseListTypes = { overdue:1, duplicate:1, dissatisfied:1 }; // 這幾類在「缺失案件明細」頁籤有明細可點入查看
+
+  var filtLabels=[], filtData=[], filtColors=[], filtTypeKeys=[];
+  data.forEach(function(v,i){ if (v>0){ filtLabels.push(labels[i]); filtData.push(v); filtColors.push(colors[i]); filtTypeKeys.push(typeKeys[i]); } });
+  if (!filtData.length){ filtLabels=['本期無扣分紀錄']; filtData=[1]; filtColors=[PALETTE.grayLight]; filtTypeKeys=[null]; }
+
+  mkChart('deductPie', ctx, {
+    type:'doughnut',
+    data:{ labels: filtLabels, datasets:[{ data: filtData, backgroundColor: filtColors, borderColor:'#fff', borderWidth:2 }] },
+    options:{
+      responsive:true, maintainAspectRatio:false, cutout:'62%',
+      onClick: function(evt, elements){
+        if (!elements || !elements.length) return;
+        var typeKey = filtTypeKeys[elements[0].index];
+        if (!caseListTypes[typeKey]) return; // 電話/態度扣分目前沒有逐筆案件明細可跳轉
+        goToCaseExplorer({ type: typeKey, station:'all', month:'all', q:'' });
+      },
+      onHover: function(evt, elements){
+        var typeKey = elements.length ? filtTypeKeys[elements[0].index] : null;
+        evt.native.target.style.cursor = (typeKey && caseListTypes[typeKey]) ? 'pointer' : 'default';
+      },
+      plugins:{
+        legend:{ position:'bottom', labels:{ boxWidth:11, boxHeight:11, font:{size:12} } },
+        tooltip:{
+          callbacks:{
+            label: function(ctx2){ return ctx2.label + '：' + ctx2.parsed + ' 件'; },
+            afterLabel: function(ctx2){
+              var typeKey = filtTypeKeys[ctx2.dataIndex];
+              var map = breakdownMaps[typeKey];
+              return sortedBreakdownLines(map);
+            },
+            footer: function(ctx2){
+              var typeKey = filtTypeKeys[ctx2[0].dataIndex];
+              return caseListTypes[typeKey] ? '點一下可直接跳轉查看案件明細' : '';
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
+function renderStationRankChart(perf){
+  var ctx = document.getElementById('chartStationRank');
+  if (!ctx) return;
+  var rows = perf.stations.slice();
+  if (perf.division) rows = rows.concat([perf.division]);
+  rows.sort(function(a,b){ return a.computedDeduct - b.computedDeduct; });
+  var labels = rows.map(function(s){ return s.name; });
+
+  var segTypeKeys = ['overdue','duplicate','phone','attitude'];
+  var segLabels   = ['逾期','重複','電話/停水公告','服務態度'];
+  var segFields   = ['overdueCum','dupCum','phoneCum','attitudeCum'];
+  var segColors   = [PALETTE.amber, PALETTE.coral, PALETTE.navy, PALETTE.tealDeep];
+  var caseListTypes = { overdue:1, duplicate:1 }; // 這兩類在「缺失案件明細」有逐筆資料可跳轉
+
+  var datasets = segTypeKeys.map(function(key, i){
+    return {
+      label: segLabels[i],
+      data: rows.map(function(s){ return num(s[segFields[i]]); }),
+      backgroundColor: segColors[i],
+      stack: 's',
+      maxBarThickness: 26
+    };
+  });
+
+  mkChart('stationRank', ctx, {
+    type:'bar',
+    data:{ labels: labels, datasets: datasets },
+    options:{
+      indexAxis:'y', responsive:true, maintainAspectRatio:false,
+      onClick: function(evt, elements){
+        if (!elements || !elements.length) return;
+        var el = elements[0];
+        var station = labels[el.index];
+        var typeKey = segTypeKeys[el.datasetIndex];
+        if (caseListTypes[typeKey]) {
+          goToCaseExplorer({ type: typeKey, station: station, month:'all', q:'' });
+        } else {
+          goToCaseExplorer({ type:'all', station: station, month:'all', q:'' });
+        }
+      },
+      onHover: function(evt, elements){ evt.native.target.style.cursor = elements.length ? 'pointer' : 'default'; },
+      scales:{
+        x:{ stacked:true, beginAtZero:true, ticks:{precision:0}, grid:{color:'#EAF0F0'} },
+        y:{ stacked:true, grid:{display:false} }
+      },
+      plugins:{
+        legend:{ position:'bottom', labels:{ boxWidth:11, boxHeight:11, font:{size:12} } },
+        tooltip:{
+          callbacks:{
+            label: function(ctx2){ return ctx2.dataset.label + '：' + ctx2.parsed.x + ' 件'; },
+            footer: function(items){
+              var idx = items[0].dataIndex;
+              var s = rows[idx];
+              return '合計扣分推算：' + num(s.computedDeduct) + ' 件';
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
+/* =========================================================================
+   6. TAB 2 — RANKING (成績與總排名)
+   ========================================================================= */
+function renderRanking(){
+  var rank = appState.rank;
+  var trial = rank.trial;
+  var regionEntries = Object.keys(trial.byRegion).map(function(k){ return trial.byRegion[k]; })
+    .map(function(v,i){ return v; });
+  // build array indexed 1..13 with idx
+  var list = [];
+  for (var idx=1; idx<=13; idx++){
+    if (trial.byRegion[idx]) list.push(Object.assign({regionIdx:idx}, trial.byRegion[idx]));
+  }
+  list.sort(function(a,b){ return (a.rank||99) - (b.rank||99); });
+  var ourEntry = trial.byRegion[OUR_REGION_IDX];
+
+  var html = '';
+  html += '<div class="section-head"><h2>成績與總排名</h2><span class="section-sub">「三、客服服務」類別　累計加總後排名（' + esc(trial.months[0]||'') + '～' + esc(trial.months[trial.months.length-1]||'') + '）</span></div>';
+
+  if (ourEntry) {
+    html += '<div class="block kpi-grid">';
+    html += kpiCard('一區累計總分', (ourEntry.total!=null? Number(ourEntry.total).toFixed(2):'—'), '客服服務類別・全期加總', 'teal');
+    html += kpiCard('一區總排名', '第 '+(ourEntry.rank!=null?ourEntry.rank:'—')+' 名', '全公司共 '+list.length+' 個區處', ourEntry.rank<=3?'amber':'navy');
+    var best = list[0], worst = list[list.length-1];
+    html += kpiCard('目前第一名', (best?best.region+'　'+Number(best.total).toFixed(2):'—'), '標竿對象', 'teal');
+    var gapToTop = (ourEntry.total!=null && best) ? (Number(ourEntry.total) - Number(best.total)).toFixed(2) : '—';
+    html += kpiCard('與第一名差距', gapToTop, '分（累計）', 'coral');
+    html += '</div>';
+  }
+
+  html += '<div class="block">';
+  html += '<div class="card"><div class="card-title">全區處累計總分排行榜</div><div class="card-sub">依「三、客服服務」累計加總分數排序，一區以深色標示</div>';
+  html += '<div class="chart-box tall"><canvas id="chartRegionRankBar"></canvas></div></div>';
+  html += '</div>';
+
+  html += '<div class="block table-wrap">' + buildRegionRankTable(list) + '</div>';
+
+  html += '<div class="block" style="margin-top:26px;">';
+  html += '<div class="card"><div class="card-title">各月得分與排名</div><div class="card-sub">各區逐月「加總得分」與「排名」，一區整列標色</div><div class="table-wrap" id="scoreRankTableWrap"></div></div>';
+  html += '</div>';
+  html += '<div class="block" style="margin-top:16px;">';
+  html += '<div class="card"><div class="card-title">一區　各月排名趨勢</div><div class="card-sub">數值越低代表名次越前面</div><div class="chart-box tall"><canvas id="chartRankTrend"></canvas></div></div>';
+  html += '</div>';
+
+  document.getElementById('panel-ranking').innerHTML = html;
+
+  renderRegionRankBar(list);
+  renderScoreRankTable();
+  renderRankTrendChart();
+}
+
+function buildRegionRankTable(list){
+  var out = '<table><thead><tr><th style="width:70px;">排名</th><th>區處</th><th class="num">累計總分</th><th class="num">與第一名差距</th></tr></thead><tbody>';
+  var top = list.length ? Number(list[0].total) : 0;
+  list.forEach(function(item){
+    var isSelf = item.regionIdx === OUR_REGION_IDX;
+    var pillClass = isSelf ? 'self' : (item.rank===1?'gold':'');
+    out += '<tr'+(isSelf?' class="own-row"':'')+'>' +
+      '<td><span class="rank-pill '+pillClass+'">'+ (item.rank!=null?item.rank:'—') +'</span></td>' +
+      '<td>'+esc(item.region)+(isSelf?'　<span class="badge badge-teal">一區（本區）</span>':'')+'</td>' +
+      '<td class="num">'+(item.total!=null?Number(item.total).toFixed(2):'—')+'</td>' +
+      '<td class="num">'+(item.total!=null?(Number(item.total)-top).toFixed(2):'—')+'</td></tr>';
+  });
+  out += '</tbody></table>';
+  return out;
+}
+
+function renderRegionRankBar(list){
+  var ctx = document.getElementById('chartRegionRankBar');
+  if (!ctx) return;
+  var sorted = list.slice().sort(function(a,b){ return b.total - a.total; });
+  var labels = sorted.map(function(x){ return x.region; });
+  var data = sorted.map(function(x){ return x.total; });
+  var colors = sorted.map(function(x){ return x.regionIdx===OUR_REGION_IDX ? PALETTE.navy : PALETTE.tealTint; });
+  mkChart('regionRankBar', ctx, {
+    type:'bar',
+    data:{ labels: labels, datasets:[{ label:'累計總分', data:data, backgroundColor: colors, borderRadius:4, maxBarThickness:34 }] },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      scales:{ y:{ beginAtZero:false, grid:{color:'#EAF0F0'} }, x:{ grid:{display:false} } },
+      plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:function(c){ return '累計總分：'+Number(c.raw).toFixed(2); } } } }
+    }
+  });
+}
+
+function renderScoreRankTable(){
+  var wrap = document.getElementById('scoreRankTableWrap');
+  if (!wrap) return;
+  var trial = appState.rank.trial;
+  var months = trial.months;
+  var regionIdxs = [];
+  for (var idx=1; idx<=13; idx++){ if (trial.byRegion[idx]) regionIdxs.push(idx); }
+
+  // 逐月計算「當月分數排名」，分數越高排名越前面（與加總排名邏輯一致）
+  var monthlyRanks = months.map(function(_, mi){
+    var scored = regionIdxs.map(function(idx){
+      return { idx:idx, score: Number(trial.byRegion[idx].scores[mi]) };
+    }).filter(function(x){ return !isNaN(x.score); });
+    scored.sort(function(a,b){ return b.score - a.score; });
+    var rankMap = {};
+    scored.forEach(function(s, i){ rankMap[s.idx] = i+1; });
+    return rankMap;
+  });
+
+  var html = '<table class="score-rank-table"><thead><tr><th class="rowlabel">區處</th>';
+  months.forEach(function(m){ html += '<th colspan="2">'+esc(m)+'</th>'; });
+  html += '</tr><tr><th class="rowlabel"></th>';
+  months.forEach(function(){ html += '<th class="sub">分數</th><th class="sub">排名</th>'; });
+  html += '</tr></thead><tbody>';
+
+  regionIdxs.forEach(function(idx){
+    var entry = trial.byRegion[idx];
+    var isSelf = idx === OUR_REGION_IDX;
+    html += '<tr'+(isSelf?' class="own-row"':'')+'><td class="rowlabel">'+esc(entry.region)+(isSelf?'　<span class="badge badge-teal">本區</span>':'')+'</td>';
+    months.forEach(function(m, mi){
+      var score = entry.scores[mi];
+      var rank = monthlyRanks[mi][idx];
+      var rankCls = rank<=3 ? 'rank-good' : (rank>=regionIdxs.length-2 ? 'rank-bad' : '');
+      html += '<td class="num">'+(score!=null && score!==''? Number(score).toFixed(2) : '—')+'</td>' +
+              '<td class="num '+rankCls+'">'+(rank!=null?rank:'—')+'</td>';
+    });
+    html += '</tr>';
+  });
+  html += '</tbody></table>';
+  wrap.innerHTML = html;
+}
+
+function renderRankTrendChart(){
+  var ctx = document.getElementById('chartRankTrend');
+  if (!ctx) return;
+  var cmp = appState.rank.compare;
+  var months = cmp.months;
+  var entry = cmp.byRegion[OUR_REGION_IDX];
+  var datasets = [{
+    label: entry ? entry.region : '一區', data: entry ? entry.ranks : [],
+    borderColor: PALETTE.coral, backgroundColor: PALETTE.coral,
+    borderWidth: 3.5, pointRadius: 3.5, pointBackgroundColor: PALETTE.coral,
+    tension:0.28
+  }];
+  mkChart('rankTrend', ctx, {
+    type:'line',
+    data:{ labels: months, datasets: datasets },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      scales:{ y:{ reverse:true, min:1, ticks:{ stepSize:1, precision:0 }, grid:{color:'#EAF0F0'} }, x:{ grid:{display:false} } },
+      plugins:{ legend:{ display:false }, tooltip:{ callbacks:{ label:function(c){ return '一區　第 '+c.raw+' 名'; } } } }
+    }
+  });
+}
+
+/* =========================================================================
+   7. TAB 3 — CASE EXPLORER (缺失案件明細)
+   ========================================================================= */
+/* 廠所識別色：依廠所名稱字母序固定配色，同一份資料每次重繪顏色都一致 */
+var STATION_COLORS = [
+  {bg:'#E3EEFB', fg:'#1B5FA8'}, // 藍
+  {bg:'#E6F3E9', fg:'#2C7A4B'}, // 綠
+  {bg:'#FBEFE0', fg:'#9A6420'}, // 橙棕
+  {bg:'#F2E7FA', fg:'#7A44A6'}, // 紫
+  {bg:'#FCE8EF', fg:'#A83368'}, // 玫紅
+  {bg:'#E1F3F1', fg:'#0E7C6B'}, // 青綠
+  {bg:'#EFF0DC', fg:'#7A7A22'}, // 橄欖
+  {bg:'#E8E9FB', fg:'#4A4FA8'}, // 靛藍
+  {bg:'#FBEAE4', fg:'#A8492F'}  // 磚紅
+];
+var stationColorMap = {};
+function buildStationColorMap(stations){
+  stationColorMap = {};
+  stations.forEach(function(s, i){ stationColorMap[s] = STATION_COLORS[i % STATION_COLORS.length]; });
+}
+function stationBadgeStyle(station){
+  var c = stationColorMap[station];
+  if (!c) return '';
+  return 'background:'+c.bg+';color:'+c.fg+';';
+}
+
+function allCases(){
+  var perf = appState.perf;
+  var list = [].concat(perf.duplicateCases, perf.overdueCases, perf.dissatisfied.rows);
+  return list;
+}
+function caseLabel(c){
+  return c.type==='duplicate' ? '重複案件' : (c.type==='overdue' ? '逾期案件' : '不滿意案件');
+}
+function caseTypeClass(c){
+  return c.type==='duplicate' ? 'type-duplicate' : (c.type==='overdue' ? 'type-overdue' : 'type-dissatisfied');
+}
+function caseBadgeClass(c){
+  return c.type==='duplicate' ? 'badge-coral' : (c.type==='overdue' ? 'badge-amber' : 'badge-teal');
+}
+
+function renderCases(){
+  var perf = appState.perf;
+  var cases = allCases();
+  var stations = Array.from(new Set(cases.map(function(c){ return c.station; }).filter(Boolean))).sort();
+  var months = Array.from(new Set(cases.map(function(c){ return c.month; }).filter(Boolean)))
+    .sort(function(a,b){ return parseInt(a) - parseInt(b); });
+  buildStationColorMap(stations);
+
+  var html = '';
+  html += '<div class="section-head"><h2>缺失案件明細</h2><span class="section-sub">共 '+cases.length+' 筆　（重複案件 '+perf.duplicateCases.length+'・逾期案件 '+perf.overdueCases.length+'・不滿意案件 '+(perf.dissatisfied.hasCases?perf.dissatisfied.rows.length:0)+'）</span></div>';
+
+  if (!perf.dissatisfied.hasCases) {
+    html += '<div class="note-banner"><svg viewBox="0 0 24 24" fill="none"><path d="M12 8v5M12 16h.01M12 3l9 16H3L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><div>'+esc(perf.dissatisfied.note||'本期累計暫無不滿意案件。')+'</div></div>';
+  }
+
+  html += '<div class="filters">' +
+    '<select id="fType"><option value="all">全部類別</option><option value="duplicate">重複案件</option><option value="overdue">逾期案件</option>'+(perf.dissatisfied.hasCases?'<option value="dissatisfied">不滿意案件</option>':'')+'</select>' +
+    '<select id="fStation"><option value="all">全部廠所</option>'+stations.map(function(s){ return '<option value="'+esc(s)+'">'+esc(s)+'</option>'; }).join('')+'</select>' +
+    '<select id="fMonth"><option value="all">全部月份</option>'+months.map(function(m){ return '<option value="'+esc(m)+'">'+esc(m)+'</option>'; }).join('')+'</select>' +
+    '<input type="text" id="fQuery" placeholder="搜尋案件編號／地址／內容關鍵字…">' +
+    '<button type="button" class="btn btn-ghost btn-sm" id="btnClearFilters">清除篩選</button>' +
+    '<span class="filter-count" id="fCount"></span>' +
+  '</div>';
+
+  html += '<div class="case-list" id="caseList"></div>';
+
+  document.getElementById('panel-cases').innerHTML = html;
+
+  document.getElementById('fType').addEventListener('change', function(){ UI.caseFilters.type=this.value; drawCaseList(); });
+  document.getElementById('fStation').addEventListener('change', function(){ UI.caseFilters.station=this.value; drawCaseList(); });
+  document.getElementById('fMonth').addEventListener('change', function(){ UI.caseFilters.month=this.value; drawCaseList(); });
+  document.getElementById('fQuery').addEventListener('input', function(){ UI.caseFilters.q=this.value.trim(); drawCaseList(); });
+  document.getElementById('btnClearFilters').addEventListener('click', function(){
+    UI.caseFilters = { type:'all', station:'all', month:'all', q:'' };
+    document.getElementById('fType').value = 'all';
+    document.getElementById('fStation').value = 'all';
+    document.getElementById('fMonth').value = 'all';
+    document.getElementById('fQuery').value = '';
+    drawCaseList();
+  });
+
+  drawCaseList();
+}
+
+function drawCaseList(){
+  var cases = allCases();
+  var f = UI.caseFilters;
+  var q = (f.q||'').toLowerCase();
+  var filtered = cases.filter(function(c){
+    if (f.type!=='all' && c.type!==f.type) return false;
+    if (f.station!=='all' && c.station!==f.station) return false;
+    if (f.month!=='all' && c.month!==f.month) return false;
+    if (q) {
+      var hay = [c.caseId, c.address, c.description, c.serviceCategory, c.category, c.station].join(' ').toLowerCase();
+      if (hay.indexOf(q) === -1) return false;
+    }
+    return true;
+  });
+  document.getElementById('fCount').textContent = '顯示 '+filtered.length+' / '+cases.length+' 筆';
+  var listEl = document.getElementById('caseList');
+  if (!filtered.length) {
+    listEl.innerHTML = '<div class="empty-note">找不到符合條件的案件，請調整篩選條件。</div>';
+    return;
+  }
+  listEl.innerHTML = filtered.map(function(c, i){
+    // 使用者最常需要看的欄位：地址／案別／「前案」結案內容／申覆結果、未通過原因 → 不用點開就直接顯示
+    var alwaysInfo = [];
+    if (c.address) alwaysInfo.push(['地址', c.address, false]);
+    var cat = c.serviceCategory || c.category;
+    if (cat) alwaysInfo.push(['案別', cat, true]);
+    if (c.type === 'duplicate') {
+      if (c.prevResult) alwaysInfo.push(['「前案」結案內容', c.prevResult, false]);
+      if (c.appealResult) alwaysInfo.push(['申覆結果、未通過原因', c.appealResult, true]);
+    } else if (c.type === 'overdue') {
+      if (c.appealResult) alwaysInfo.push(['申覆結果、未通過原因', c.appealResult, true]);
+    }
+    var alwaysHtml = alwaysInfo.length ? '<div class="case-info">' + alwaysInfo.map(function(kv){
+      var highlight = kv[2] ? ' case-info-value-flag' : '';
+      return '<div class="case-info-row"><span class="case-info-label">'+esc(kv[0])+'</span><span class="case-info-value'+highlight+'">'+esc(kv[1])+'</span></div>';
+    }).join('') + '</div>' : '';
+
+    // 其餘次要欄位維持點一下展開
+    var extra = '';
+    if (c.type==='duplicate') {
+      extra = '<div><b>前案號：</b>'+esc(c.prevCase||'—')+'</div>' +
+        '<div><b>是否扣分：</b>'+(c.deducted?'<span class="badge badge-coral">扣分</span>':'<span class="badge badge-gray">未扣分</span>')+'</div>';
+    } else if (c.type==='overdue') {
+      extra = '<div><b>處理時效：</b>'+(c.processHours!=null?Number(c.processHours).toFixed(1)+' 小時':'—')+'</div>' +
+        '<div><b>修漏案號：</b>'+esc(c.repairCaseId||'—')+'</div>' +
+        '<div><b>逾期情形／說明：</b>'+esc(c.overdueNote||c.completionOverdue||'—')+'</div>';
+    }
+    return '<div class="case-item '+caseTypeClass(c)+'" data-idx="'+i+'">' +
+      '<div class="case-top">' +
+        '<div><span class="badge '+caseBadgeClass(c)+'">'+caseLabel(c)+'</span>　<span class="case-id">'+esc(c.caseId||'')+'</span></div>' +
+        '<div class="case-meta"><span class="station-badge" style="'+stationBadgeStyle(c.station)+'">'+esc(c.station||'未標示')+'</span>'+(c.month?'<span>・'+esc(c.month)+'</span>':'')+(c.reportTime?'<span>・'+esc(c.reportTime)+'</span>':'')+'</div>' +
+      '</div>' +
+      '<div class="case-desc clamp2">'+esc(c.description||c.address||'')+'</div>' +
+      alwaysHtml +
+      (extra ? '<div class="case-detail">' + extra + '</div>' : '') +
+    '</div>';
+  }).join('');
+  Array.prototype.forEach.call(listEl.querySelectorAll('.case-item'), function(el){
+    el.addEventListener('click', function(){ el.classList.toggle('open'); });
+  });
+}
+
+/* =========================================================================
+   8. SNAPSHOT EXPORT (standalone HTML for archiving/sharing)
+   ========================================================================= */
+document.getElementById('btnExport').addEventListener('click', function(){
+  if (!appState) return;
+  var doc = document.documentElement.cloneNode(true);
+  var snapEl = doc.querySelector('#snapshot-data');
+  if (snapEl) snapEl.textContent = JSON.stringify(appState);
+  var title = doc.querySelector('title');
+  var monthLabel = appState.perf.monthLabel || '';
+  if (title) title.textContent = (monthLabel?monthLabel+' ':'') + '一區客服業務績效簡報';
+  var html = '<!DOCTYPE html>\n' + doc.outerHTML;
+  var blob = new Blob([html], {type:'text/html;charset=utf-8'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  var fname = (monthLabel ? monthLabel.replace(/[年月]/g,'') : 'report') + '_一區客服績效簡報.html';
+  a.href = url; a.download = fname;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+});
+
+/* =========================================================================
+   9. BOOTSTRAP — load embedded snapshot if present, else show upload screen
+   ========================================================================= */
+(function bootstrap(){
+  var snapEl = document.getElementById('snapshot-data');
+  var raw = snapEl ? snapEl.textContent.trim() : '';
+  if (raw) {
+    try {
+      appState = JSON.parse(raw);
+      launchDashboard();
+      return;
+    } catch(e){ console.error('快照資料解析失敗，改為顯示上傳畫面', e); }
+  }
+})();
+
+})();
+</script>
+
+
+
+</body></html>
